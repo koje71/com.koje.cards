@@ -31,6 +31,7 @@ class MainActivity : BaseActivity() {
                         setLayoutWeight(1f)
                         setWidthMatchParent()
                         addImageView {
+                            // https://unsplash.com/de/fotos/braune-und-schwarze-kartendarstellung-Ou5bbnSZjGI
                             setDrawableId(R.drawable.background)
                             setScaleTypeCenterCrop()
                         }
