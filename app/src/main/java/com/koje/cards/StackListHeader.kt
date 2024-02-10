@@ -26,11 +26,6 @@ class StackListHeader : FrameLayoutBuilder.Editor {
                 }
 
                 addFiller()
-
-                addImageView {
-                    setSizeDP(50)
-                    setDrawableId(R.drawable.addicon)
-                }
             }
         }
     }

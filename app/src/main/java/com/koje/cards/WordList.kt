@@ -12,13 +12,14 @@ class WordList(val name:String) : FrameLayoutBuilder.Editor {
         with(target){
             addLinearLayout {
                 setOrientationVertical()
+                setWidthMatchParent()
+                setBackgroundColorId(R.color.purple_200)
 
 
                 addScrollView {
-                    addLinearLayout {
-                        setOrientationVertical()
-
+                    setWidthMatchParent()
                         addRecyclerView {
+                            setWidthMatchParent()
                             val data = mutableListOf<WordPair>(
                                 WordPair("huhu","hallo"),
                                 WordPair("huhu1","hallo2")
@@ -29,7 +30,6 @@ class WordList(val name:String) : FrameLayoutBuilder.Editor {
 
                             setAdapter(WordListAdapter(data))
                         }
-                    }
                 }
                 addFiller()
 

@@ -17,6 +17,10 @@ class MainActivityHeader:LinearLayoutBuilder.Editor {
                     setTextColorID(R.color.white)
                     setFontId(R.font.nunito_bold)
                     setText("Lernkarten Spiel")
+
+                    setOnClickListener {
+                        MainActivity.content.set(StackList())
+                    }
                 }
                 addView {
                     setHeightDP(3)

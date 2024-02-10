@@ -35,8 +35,11 @@ class WordListAdapter(val content: MutableList<WordPair>) :
             }
             addView {
                 setHeightDP(10)
-                setWidthDP(10)
+                setWidthMatchParent()
+
                 setBackgroundColorId(R.color.black)
+                setLayoutWeight(1f)
+
             }
             addEditText {
                 setViewId(col2Id)
