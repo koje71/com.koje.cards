@@ -34,7 +34,12 @@ class StackListAdapter() :
                     setDrawableId(R.drawable.editicon)
                     setSizeDP(40)
                     setOnClickListener {
-                        MainActivity.content.set(WordList("latein"))
+                        val target = parent.findViewById<TextView>(nameId).text
+                        content.forEach {
+                            if(it.name == target){
+                                MainActivity.content.set(WordList(it))
+                            }
+                        }
                     }
                 }
 

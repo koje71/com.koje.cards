@@ -26,11 +26,6 @@ class WordListHeader(val title:String) : FrameLayoutBuilder.Editor {
                 }
 
                 addFiller()
-
-                addImageView {
-                    setSizeDP(50)
-                    setDrawableId(R.drawable.addicon)
-                }
             }
         }
     }

@@ -22,7 +22,6 @@ class StackList : FrameLayoutBuilder.Editor {
         with(target){
             addLinearLayout {
                 setOrientationVertical()
-
                 addCreateEntry(this)
                 addScrollView {
                     addRecyclerView {
@@ -33,11 +32,9 @@ class StackList : FrameLayoutBuilder.Editor {
                     }
                 }
                 addFiller()
-
                 addRelativeLayout {
                     setGravityCenterRight()
                     setPaddingsDP(10,10)
-
                     addLinearLayout {
                         setOrientationHorizontal()
                         addTextView {
@@ -90,22 +87,19 @@ class StackList : FrameLayoutBuilder.Editor {
 
     }
 
-    fun createNewStack(name:String){
+    @SuppressLint("NotifyDataSetChanged")
+    private fun createNewStack(name:String){
         if(name.length==0){
             return
         }
-
         Repository.data.forEach{
             if(it.name == name){
                 return
             }
         }
-
         Repository.data.add(0,Stack(name))
         list.adapter?.notifyDataSetChanged()
     }
 
-    companion object{
-    }
 }
 

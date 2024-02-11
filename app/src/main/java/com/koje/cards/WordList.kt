@@ -1,34 +1,34 @@
 package com.koje.cards
 
+import android.annotation.SuppressLint
+import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.koje.cards.data.Stack
+import com.koje.cards.data.StackEntry
 import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder
 
 
-class WordList(val name:String) : FrameLayoutBuilder.Editor {
+class WordList(val stack: Stack) : FrameLayoutBuilder.Editor {
+
+    lateinit var list: RecyclerView
 
     override fun edit(target: FrameLayoutBuilder) {
-        MainActivityHeader.content.set(WordListHeader(name))
+        MainActivityHeader.content.set(WordListHeader(stack.name))
         with(target){
             addLinearLayout {
                 setOrientationVertical()
                 setWidthMatchParent()
-                setBackgroundColorId(R.color.purple_200)
 
-
+                addCreateEntry(this)
                 addScrollView {
                     setWidthMatchParent()
                         addRecyclerView {
                             setWidthMatchParent()
-                            val data = mutableListOf<WordPair>(
-                                WordPair("huhu","hallo"),
-                                WordPair("huhu1","hallo2")
-                            )
-
-                            val mLayoutManager = LinearLayoutManager(view.context)
-                            view.setLayoutManager(mLayoutManager)
-
-                            setAdapter(WordListAdapter(data))
+                            setLinearLayoutManager()
+                            setAdapter(WordListAdapter(stack))
+                            list = this.view
                         }
                 }
                 addFiller()
@@ -73,40 +73,67 @@ class WordList(val name:String) : FrameLayoutBuilder.Editor {
         }
     }
 
-    fun addListEntry(target:LinearLayoutBuilder,value:String, solution:String){
+    @SuppressLint("NotifyDataSetChanged")
+    fun addCreateEntry(target:LinearLayoutBuilder){
         with(target){
             addLinearLayout {
                 setOrientationHorizontal()
 
+                var edit1: EditText? = null
+                var edit2: EditText? = null
+
                 addEditText {
                     setPaddingsDP(10,5)
-                    setTextSizeSP(30)
+                    setTextSizeSP(18)
                     setMarginsDP(0,5,0,0)
-                    setText(value)
+                    setText("Vokabel")
+                    setBackgroundNull()
                     setWidthDP(100)
                     setLayoutWeight(1f)
-                    setBackgroundNull()
+                    edit1 = this.view
                 }
 
                 addEditText {
                     setPaddingsDP(10,5)
-                    setTextSizeSP(30)
+                    setTextSizeSP(18)
                     setMarginsDP(0,5,0,0)
-                    setText(solution)
-                    setWidthDP(100)
-                    setGravityRight()
-                    setLayoutWeight(1f)
+                    setText("Übersetzung")
                     setBackgroundNull()
+                    setWidthDP(100)
+                    setLayoutWeight(1f)
+                    edit2 = this.view
                 }
 
+                addImageView {
+                    setDrawableId(R.drawable.addicon)
+                    setSizeDP(50)
+                    setPaddingsDP(5,5)
 
+                    setOnClickListener {
+                        createNewStackEntry(edit1?.text.toString(),edit2?.text.toString())
+                    }
+                }
             }
             addView {
                 setHeightDP(3)
                 setBackgroundColorId(R.color.BlackTransparent)
             }
         }
+
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun createNewStackEntry(word1:String, word2:String){
+        with(stack){
+            content.forEach {
+                if(it.name == word1){
+                    return
+                }
+            }
+            content.add(0, StackEntry(word1,word2,0))
+            save()
+            list.adapter?.notifyDataSetChanged()
+        }
+    }
 }
 
