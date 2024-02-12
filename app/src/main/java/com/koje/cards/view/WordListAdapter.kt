@@ -1,12 +1,12 @@
-package com.koje.cards
+package com.koje.cards.view
 
 import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.koje.cards.R
 import com.koje.cards.data.Stack
 import com.koje.framework.view.LinearLayoutBuilder
 
@@ -27,33 +27,41 @@ class WordListAdapter(val stack: Stack) :
         with(LinearLayoutBuilder(LinearLayout(parent.context))) {
             setOrientationHorizontal()
 
-            addTextView {
-                setViewId(col1Id)
-                setWidthDP(100)
+            addLinearLayout {
                 setLayoutWeight(1f)
-                setPaddingsDP(10,5)
-                setTextSizeSP(24)
+                setOrientationHorizontal()
+                setMarginsDP(0,3,0,0)
+
+                addTextView {
+                    setViewId(col1Id)
+                    setLayoutWeight(1f)
+                    setPaddingsDP(10, 5)
+                    setTextSizeSP(22)
+                }
+
+                addFiller()
+                addTextView {
+                    setViewId(col2Id)
+                    setLayoutWeight(1f)
+                    setPaddingsDP(10, 5)
+                    setGravityRight()
+                    setTextSizeSP(22)
+                }
             }
-            addTextView {
-                setViewId(col2Id)
-                setWidthDP(100)
-                setLayoutWeight(1f)
-                setPaddingsDP(10,5)
-                setTextSizeSP(24)
-            }
+
 
 
             addImageView {
                 setDrawableId(R.drawable.removeicon)
-                setSizeDP(50)
-                setPaddingsDP(5,5)
+                setSizeDP(40)
+                setPaddingsDP(5, 5)
 
                 setOnClickListener {
                     val name = parent.findViewById<TextView>(col1Id).text
                     val iterator = stack.content.iterator()
                     while (iterator.hasNext()) {
                         val current = iterator.next()
-                        if(current.name == name){
+                        if (current.name == name) {
                             iterator.remove()
                         }
                         stack.save()
@@ -66,6 +74,7 @@ class WordListAdapter(val stack: Stack) :
         }
     }
 
+
     override fun getItemCount(): Int {
         return content.size
     }
@@ -75,7 +84,7 @@ class WordListAdapter(val stack: Stack) :
         holder.col2.setText(content[position].solution)
     }
 
-    companion object{
+    companion object {
         val col1Id = View.generateViewId()
         val col2Id = View.generateViewId()
     }

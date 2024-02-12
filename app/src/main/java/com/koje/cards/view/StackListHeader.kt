@@ -1,21 +1,14 @@
-package com.koje.cards
+package com.koje.cards.view
 
-import android.content.Context
-import android.content.pm.PackageManager
-import android.os.Environment
-import androidx.core.app.ActivityCompat
-import com.koje.framework.App
-import com.koje.framework.utils.Logger
+import com.koje.cards.R
 import com.koje.framework.view.FrameLayoutBuilder
-import com.koje.framework.view.LinearLayoutBuilder
-import java.io.File
 
 
 class StackListHeader : FrameLayoutBuilder.Editor {
 
 
     override fun edit(target: FrameLayoutBuilder) {
-        with(target){
+        with(target) {
             addLinearLayout {
                 setOrientationHorizontal()
                 addTextView {

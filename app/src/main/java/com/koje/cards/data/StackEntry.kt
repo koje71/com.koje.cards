@@ -1,4 +1,4 @@
 package com.koje.cards.data
 
-class StackEntry(val name:String, val solution:String, val count:Int) {
+class StackEntry(val stack: Stack, val name: String, val solution: String, var score: Int) {
 }

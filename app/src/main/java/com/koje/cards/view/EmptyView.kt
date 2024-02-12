@@ -1,4 +1,4 @@
-package com.koje.cards
+package com.koje.cards.view
 
 import com.koje.framework.view.FrameLayoutBuilder
 

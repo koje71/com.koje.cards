@@ -1,18 +1,19 @@
-package com.koje.cards
+package com.koje.cards.view
 
+import com.koje.cards.R
 import com.koje.framework.events.Notifier
 import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder
 
-class MainActivityHeader:LinearLayoutBuilder.Editor {
+class MainActivityHeader : LinearLayoutBuilder.Editor {
     override fun edit(target: LinearLayoutBuilder) {
-        with(target){
+        with(target) {
 
             addLinearLayout {
                 setOrientationVertical()
                 setBackgroundColorId(R.color.TitleBackground)
                 addTextView {
-                    setPaddingsDP(10,0)
+                    setPaddingsDP(10, 0)
                     setTextSizeSP(40)
                     setTextColorID(R.color.white)
                     setFontId(R.font.nunito_bold)
@@ -29,9 +30,9 @@ class MainActivityHeader:LinearLayoutBuilder.Editor {
                 }
                 addFrameLayout {
                     setHeightDP(60)
-                    setPaddingsDP(10,5,5,5)
+                    setPaddingsDP(10, 5, 5, 5)
                     setWidthMatchParent()
-                    addReceiver(content){
+                    addReceiver(content) {
                         replace(it)
                     }
                 }
@@ -39,7 +40,7 @@ class MainActivityHeader:LinearLayoutBuilder.Editor {
         }
     }
 
-    companion object{
+    companion object {
         val content = Notifier<FrameLayoutBuilder.Editor>(StackListHeader())
     }
 }

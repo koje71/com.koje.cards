@@ -3,7 +3,6 @@ package com.koje.framework.view
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.EditText
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 
 class EditTextBuilder(override val view: EditText) :
@@ -29,7 +28,7 @@ class EditTextBuilder(override val view: EditText) :
         view.setText(view.context.resources.getText(value))
     }
 
-    fun setBackgroundNull(){
+    fun setBackgroundNull() {
         view.background = null
     }
 

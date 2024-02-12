@@ -1,16 +1,11 @@
-package com.koje.cards
+package com.koje.cards.view
 
-import android.app.ActionBar
 import android.view.WindowManager
+import com.koje.cards.R
 import com.koje.cards.data.Repository
-import com.koje.cards.data.Stack
-import com.koje.cards.data.StackEntry
-import com.koje.framework.App
 import com.koje.framework.events.Notifier
-import com.koje.framework.utils.Logger
 import com.koje.framework.view.BaseActivity
 import com.koje.framework.view.FrameLayoutBuilder
-import java.io.File
 
 class MainActivity : BaseActivity() {
 
@@ -22,7 +17,7 @@ class MainActivity : BaseActivity() {
             navigationBarColor = target.getColorFromID(R.color.black)
         }
 
-        with(target){
+        with(target) {
             addFrameLayout {
                 addLinearLayout {
                     setOrientationVertical()
@@ -38,7 +33,7 @@ class MainActivity : BaseActivity() {
                         addFrameLayout {
                             setLayoutWeight(1f)
                             setWidthMatchParent()
-                            addReceiver(content){
+                            addReceiver(content) {
                                 replaceWithFade(it)
                             }
                         }
@@ -49,7 +44,7 @@ class MainActivity : BaseActivity() {
                 addFrameLayout {
                     setLayoutWeight(1f)
                     setWidthMatchParent()
-                    addReceiver(overlay){
+                    addReceiver(overlay) {
                         replaceWithFade(it)
                     }
                 }
@@ -59,7 +54,7 @@ class MainActivity : BaseActivity() {
     }
 
 
-    companion object{
+    companion object {
         val content = Notifier<FrameLayoutBuilder.Editor>(EmptyView())
         val overlay = Notifier<FrameLayoutBuilder.Editor>(EmptyView())
     }

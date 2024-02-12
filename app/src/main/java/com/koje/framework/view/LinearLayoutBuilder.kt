@@ -26,6 +26,10 @@ class LinearLayoutBuilder(override val view: LinearLayout) :
         view.gravity = Gravity.CENTER_VERTICAL
     }
 
+    fun setGravityRight() {
+        view.gravity = Gravity.RIGHT
+    }
+
     fun setOrientationHorizontal() {
         view.setOrientation(LinearLayout.HORIZONTAL)
     }

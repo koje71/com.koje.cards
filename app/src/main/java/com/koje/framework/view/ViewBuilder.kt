@@ -23,7 +23,7 @@ open class ViewBuilder(open val view: View) {
         editor.edit(this as T)
     }
 
-    fun setViewId(id:Int){
+    fun setViewId(id: Int) {
         view.id = id
     }
 

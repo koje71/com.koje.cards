@@ -1,16 +1,13 @@
-package com.koje.cards
+package com.koje.cards.view
 
 import android.annotation.SuppressLint
 import android.widget.EditText
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.koje.cards.R
 import com.koje.cards.data.Repository
 import com.koje.cards.data.Stack
-import com.koje.framework.App
-import com.koje.framework.utils.Logger
 import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder
-import java.io.File
 
 
 class StackList : FrameLayoutBuilder.Editor {
@@ -19,7 +16,7 @@ class StackList : FrameLayoutBuilder.Editor {
 
     override fun edit(target: FrameLayoutBuilder) {
         MainActivityHeader.content.set(StackListHeader())
-        with(target){
+        with(target) {
             addLinearLayout {
                 setOrientationVertical()
                 addCreateEntry(this)
@@ -32,18 +29,20 @@ class StackList : FrameLayoutBuilder.Editor {
                     }
                 }
                 addFiller()
-                addRelativeLayout {
-                    setGravityCenterRight()
-                    setPaddingsDP(10,10)
-                    addLinearLayout {
-                        setOrientationHorizontal()
-                        addTextView {
-                            add(RoundCornerBackground(R.color.white))
-                            setPaddingsDP(20,10,20,15)
-                            setTextSizeSP(20)
-                            setFontId(R.font.nunito_bold)
-                            setMarginsDP(0,5,0,0)
-                            setText("Start")
+
+                addLinearLayout {
+                    setOrientationHorizontal()
+                    setBackgroundColorId(R.color.TitleBackground)
+                    setPaddingsDP(10, 10)
+                    addFiller()
+
+                    addTextView {
+                        add(RoundCornerButtonFormat())
+                        setText("Start")
+
+                        setOnClickListener {
+                            Repository.score=0
+                            MainActivity.content.set(Excercise())
                         }
                     }
                 }
@@ -52,17 +51,17 @@ class StackList : FrameLayoutBuilder.Editor {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addCreateEntry(target:LinearLayoutBuilder){
-        with(target){
+    fun addCreateEntry(target: LinearLayoutBuilder) {
+        with(target) {
             addLinearLayout {
                 setOrientationHorizontal()
 
-                var editor:EditText? = null
+                var editor: EditText? = null
 
                 addEditText {
-                    setPaddingsDP(10,5)
+                    setPaddingsDP(10, 5)
                     setTextSizeSP(18)
-                    setMarginsDP(0,5,0,0)
+                    setMarginsDP(0, 5, 0, 0)
                     setText("Hinzufügen")
                     setBackgroundNull()
                     editor = view
@@ -72,7 +71,7 @@ class StackList : FrameLayoutBuilder.Editor {
                 addImageView {
                     setDrawableId(R.drawable.addicon)
                     setSizeDP(50)
-                    setPaddingsDP(5,5)
+                    setPaddingsDP(5, 5)
 
                     setOnClickListener {
                         createNewStack(editor?.text.toString())
@@ -88,16 +87,16 @@ class StackList : FrameLayoutBuilder.Editor {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun createNewStack(name:String){
-        if(name.length==0){
+    private fun createNewStack(name: String) {
+        if (name.length == 0) {
             return
         }
-        Repository.data.forEach{
-            if(it.name == name){
+        Repository.content.forEach {
+            if (it.name == name) {
                 return
             }
         }
-        Repository.data.add(0,Stack(name))
+        Repository.content.add(0, Stack(name))
         list.adapter?.notifyDataSetChanged()
     }
 

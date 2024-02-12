@@ -11,4 +11,6 @@
     <color name="BlackTransparent">#10000000</color>
     <color name="WhiteTransparent">#30FFFFFF</color>
     <color name="TitleBackground">#0A3733</color>
+    <color name="ButtonClick">#EFE7B6</color>
+    <color name="Solved">#6FEC3A</color>
 </resources>
