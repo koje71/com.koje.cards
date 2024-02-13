@@ -1,4 +1,4 @@
-package com.koje.cards.view
+package com.koje.cards.view.stacklist
 
 import android.content.res.ColorStateList
 import android.view.View
@@ -10,6 +10,8 @@ import androidx.core.widget.CompoundButtonCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.koje.cards.R
 import com.koje.cards.data.Repository
+import com.koje.cards.view.MainActivity
+import com.koje.cards.view.wordlist.WordList
 import com.koje.framework.view.LinearLayoutBuilder
 
 

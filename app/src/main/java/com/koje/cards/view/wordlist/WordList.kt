@@ -1,4 +1,4 @@
-package com.koje.cards.view
+package com.koje.cards.view.wordlist
 
 import android.annotation.SuppressLint
 import android.widget.EditText
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.koje.cards.R
 import com.koje.cards.data.Stack
 import com.koje.cards.data.StackEntry
+import com.koje.cards.view.MainActivityFooter
 import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder
 

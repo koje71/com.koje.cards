@@ -1,8 +1,10 @@
-package com.koje.cards.view
+package com.koje.cards.view.excercise
 
 import com.koje.cards.R
 import com.koje.cards.data.Repository
 import com.koje.cards.data.StackEntry
+import com.koje.cards.view.MainActivityFooter
+import com.koje.cards.view.general.RoundCornerButtonFormat
 import com.koje.framework.events.Notifier
 import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder
@@ -25,7 +27,7 @@ class Excercise : FrameLayoutBuilder.Editor {
         }
 
         contentCandidates.shuffle()
-        for (i in 0..2) {
+        for (i in 0..10) {
             if (contentCandidates[0].score > contentCandidates[0].stack.getScore()) {
                 contentCandidates.shuffle()
             }

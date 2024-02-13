@@ -3,12 +3,12 @@ package com.koje.cards.view
 import android.view.WindowManager
 import com.koje.cards.R
 import com.koje.cards.data.Repository
+import com.koje.cards.view.general.EmptyView
 import com.koje.framework.events.Notifier
 import com.koje.framework.view.BaseActivity
 import com.koje.framework.view.FrameLayoutBuilder
 
 class MainActivity : BaseActivity() {
-
 
     override fun createLayout(target: FrameLayoutBuilder) {
         with(window) {

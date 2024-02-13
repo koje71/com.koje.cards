@@ -1,6 +1,7 @@
 package com.koje.cards.view
 
 import com.koje.cards.R
+import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.view.LinearLayoutBuilder
 
 class MainActivityHeader : LinearLayoutBuilder.Editor {

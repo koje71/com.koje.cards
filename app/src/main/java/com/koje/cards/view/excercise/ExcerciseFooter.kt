@@ -1,8 +1,10 @@
-package com.koje.cards.view
+package com.koje.cards.view.excercise
 
 import com.koje.cards.R
 import com.koje.cards.data.Repository
 import com.koje.cards.data.StackEntry
+import com.koje.cards.view.MainActivity
+import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.view.FrameLayoutBuilder
 
 

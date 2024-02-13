@@ -1,4 +1,4 @@
-package com.koje.cards.view
+package com.koje.cards.view.wordlist
 
 import android.annotation.SuppressLint
 import android.view.View
