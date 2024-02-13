@@ -11,7 +11,7 @@ class RoundCornerButtonFormat : TextViewBuilder.Editor {
             setPaddingsDP(20, 5, 20, 10)
             setTextSizeSP(20)
             setFontId(R.font.nunito_bold)
-            setMarginsDP(5, 5,5,5)
+            setMarginsDP(5, 5, 5, 5)
 
             setBackgroundStateList {
                 addStatePressedGradient {

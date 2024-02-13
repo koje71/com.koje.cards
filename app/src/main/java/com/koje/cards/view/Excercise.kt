@@ -5,7 +5,7 @@ import com.koje.cards.data.Repository
 import com.koje.cards.data.StackEntry
 import com.koje.framework.events.Notifier
 import com.koje.framework.view.FrameLayoutBuilder
-import com.koje.framework.view.TextViewBuilder
+import com.koje.framework.view.LinearLayoutBuilder
 
 
 class Excercise : FrameLayoutBuilder.Editor {
@@ -17,7 +17,7 @@ class Excercise : FrameLayoutBuilder.Editor {
         Repository.content.forEach {
             if (it.checked.get()) {
                 it.content.forEach {
-                    if(it.name!=last) {
+                    if (it.name != last) {
                         contentCandidates.add(it)
                     }
                 }
@@ -46,75 +46,72 @@ class Excercise : FrameLayoutBuilder.Editor {
         }
         answers.add(content.solution)
 
-        MainActivityHeader.content.set(ExcerciseHeader(content))
+        MainActivityFooter.content.set(ExcerciseFooter(content))
         with(target) {
             addLinearLayout {
                 setOrientationVertical()
-                setPaddingsDP(0, 0, 0, 0)
+                setPaddingsDP(10, 10, 10, 10)
 
                 addTextView {
                     setText(content.name)
                     setPaddingsDP(10, 10)
                     setGravityCenter()
                     setLayoutWeight(1f)
-                    setTextSizeSP(40)
+                    setTextSizeSP(60)
                 }
 
-                answers.shuffled().forEach{ answer ->
-                    addTextView {
-                        add(RoundCornerButtonFormat())
-                        setBackgroundGradient {
-                            setColorId(R.color.white)
-                            setCornerRadius(10)
-                            setStroke(3, R.color.black)
-                        }
-                        setText(answer)
-                        setGravityCenter()
-                        setOnClickListener {
-                            solution.set(content.solution)
-                            val solved = answer == content.solution
-                            if(solved){
-                                Repository.score++
-                                content.score++
-                                content.stack.save()
-                            }else{
-                                Repository.score--
-                            }
-                            Thread{
-                                Thread.sleep(1000)
-                                MainActivity.content.set(Excercise())
-                            }.start()
-                        }
+                answers.shuffled().forEach {
+                    addGameButton(this, content, it)
+                }
+            }
+        }
+    }
 
-                        addReceiver(solution){
-                            if(it == answer){
-                                setBackgroundGradient {
-                                    setColorId(R.color.Solved)
-                                    setCornerRadius(10)
-                                    setStroke(3, R.color.black)
-                                }
-                            }
-                        }
-
+    private fun addGameButton(target: LinearLayoutBuilder, content: StackEntry, answer: String) {
+        with(target) {
+            addTextView {
+                var clicked = false
+                add(RoundCornerButtonFormat())
+                setBackgroundGradient {
+                    setColorId(R.color.white)
+                    setCornerRadius(10)
+                    setStroke(3, R.color.black)
+                }
+                setText(answer)
+                setGravityCenter()
+                setOnClickListener {
+                    clicked = true
+                    solution.set(content.solution)
+                    val solved = answer == content.solution
+                    if (solved) {
+                        Repository.score.increase()
+                        content.score++
+                        content.stack.save()
+                    } else {
+                        Repository.score.decrease()
                     }
                 }
 
-                addLinearLayout {
-                    setOrientationHorizontal()
-                    setMarginsDP(0,10,0,0)
-                    setBackgroundColorId(R.color.TitleBackground)
-                    addFiller()
-                    addTextView {
-                        add(RoundCornerButtonFormat())
-                        setText("weiter")
+                addReceiver(solution) {
+                    if (it == answer) {
+                        setBackgroundGradient {
+                            setColorId(R.color.Solved)
+                            setCornerRadius(10)
+                            setStroke(3, R.color.black)
+                        }
+                    } else if (clicked) {
+                        setBackgroundGradient {
+                            setColorId(R.color.Failed)
+                            setCornerRadius(10)
+                            setStroke(3, R.color.black)
+                        }
                     }
                 }
             }
         }
     }
 
-
-    companion object{
+    companion object {
         var last = ""
     }
 }

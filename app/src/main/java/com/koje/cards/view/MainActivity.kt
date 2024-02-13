@@ -38,6 +38,8 @@ class MainActivity : BaseActivity() {
                             }
                         }
                     }
+                    add(MainActivityFooter())
+
 
                 }
 
@@ -48,6 +50,7 @@ class MainActivity : BaseActivity() {
                         replaceWithFade(it)
                     }
                 }
+
             }
         }
         Repository.load()

@@ -3,6 +3,7 @@ package com.koje.cards.data
 import com.koje.cards.view.MainActivity
 import com.koje.cards.view.StackList
 import com.koje.framework.App
+import com.koje.framework.events.IntNotifier
 import com.koje.framework.utils.Logger
 import java.io.File
 
@@ -10,7 +11,7 @@ object Repository {
 
     val content = mutableListOf<Stack>()
     val path = "${App.context.filesDir.absolutePath}/cards"
-    var score = 0
+    var score = IntNotifier(0)
 
     fun load() {
         content.clear()

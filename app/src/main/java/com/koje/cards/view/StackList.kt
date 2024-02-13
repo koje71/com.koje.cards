@@ -15,7 +15,7 @@ class StackList : FrameLayoutBuilder.Editor {
     lateinit var list: RecyclerView
 
     override fun edit(target: FrameLayoutBuilder) {
-        MainActivityHeader.content.set(StackListHeader())
+        MainActivityFooter.content.set(StackListFooter())
         with(target) {
             addLinearLayout {
                 setOrientationVertical()
@@ -30,22 +30,6 @@ class StackList : FrameLayoutBuilder.Editor {
                 }
                 addFiller()
 
-                addLinearLayout {
-                    setOrientationHorizontal()
-                    setBackgroundColorId(R.color.TitleBackground)
-                    setPaddingsDP(10, 10)
-                    addFiller()
-
-                    addTextView {
-                        add(RoundCornerButtonFormat())
-                        setText("Start")
-
-                        setOnClickListener {
-                            Repository.score=0
-                            MainActivity.content.set(Excercise())
-                        }
-                    }
-                }
             }
         }
     }
@@ -71,7 +55,7 @@ class StackList : FrameLayoutBuilder.Editor {
                 addImageView {
                     setDrawableId(R.drawable.addicon)
                     setSizeDP(50)
-                    setPaddingsDP(5, 5)
+                    setPaddingsDP(10, 10)
 
                     setOnClickListener {
                         createNewStack(editor?.text.toString())

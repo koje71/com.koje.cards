@@ -116,7 +116,7 @@ class StackListAdapter() :
         with(holder) {
             name.setText(stack.name)
             wordCount.setText("${stack.content.size}")
-            score.setText(stack.getScore().toString())
+            score.setText("%.2f".format(stack.getScore()))
             checked.isChecked = stack.checked.get()
         }
     }

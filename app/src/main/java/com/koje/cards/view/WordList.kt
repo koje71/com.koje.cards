@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.koje.cards.R
 import com.koje.cards.data.Stack
 import com.koje.cards.data.StackEntry
-import com.koje.framework.utils.Logger
 import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder
 
@@ -16,7 +15,7 @@ class WordList(val stack: Stack) : FrameLayoutBuilder.Editor {
     lateinit var list: RecyclerView
 
     override fun edit(target: FrameLayoutBuilder) {
-        MainActivityHeader.content.set(WordListHeader(stack.name))
+        MainActivityFooter.content.set(WordListFooter())
         with(target) {
             addLinearLayout {
                 setOrientationVertical()
@@ -34,39 +33,7 @@ class WordList(val stack: Stack) : FrameLayoutBuilder.Editor {
                 }
                 addFiller()
 
-                addLinearLayout {
-                    setOrientationHorizontal()
-                    setPaddingsDP(10, 10)
-                    setBackgroundColorId(R.color.TitleBackground)
 
-                    addImageView {
-                        setDrawableId(R.drawable.backicon)
-                        setSizeDP(50)
-                        setOnClickListener {
-                            MainActivity.content.set(StackList())
-                        }
-                    }
-
-                    addFiller()
-
-                    addTextView {
-                        add(RoundCornerButtonFormat())
-                        setText("Import")
-                        setOnClickListener {
-                            Logger.info(this, "huhu")
-                        }
-                    }
-
-                    addTextView {
-                        add(RoundCornerButtonFormat())
-                        setText("Export")
-                        setOnClickListener {
-                            Logger.info(this, "huhu")
-                        }
-                    }
-
-
-                }
             }
         }
     }
@@ -106,7 +73,7 @@ class WordList(val stack: Stack) : FrameLayoutBuilder.Editor {
                 addImageView {
                     setDrawableId(R.drawable.addicon)
                     setSizeDP(50)
-                    setPaddingsDP(5, 5)
+                    setPaddingsDP(10, 10)
 
                     setOnClickListener {
                         createNewStackEntry(edit1?.text.toString(), edit2?.text.toString())
