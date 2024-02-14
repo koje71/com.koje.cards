@@ -3,7 +3,7 @@ package com.koje.cards.view.excercise
 import com.koje.cards.R
 import com.koje.cards.data.Repository
 import com.koje.cards.data.StackEntry
-import com.koje.cards.view.MainActivityFooter
+import com.koje.cards.view.Activity
 import com.koje.cards.view.general.RoundCornerButtonFormat
 import com.koje.framework.events.Notifier
 import com.koje.framework.view.FrameLayoutBuilder
@@ -15,40 +15,9 @@ class Excercise : FrameLayoutBuilder.Editor {
     val solution = Notifier("")
 
     override fun edit(target: FrameLayoutBuilder) {
-        val contentCandidates = mutableListOf<StackEntry>()
-        Repository.content.forEach {
-            if (it.checked.get()) {
-                it.content.forEach {
-                    if (it.name != last) {
-                        contentCandidates.add(it)
-                    }
-                }
-            }
-        }
-
-        contentCandidates.shuffle()
-        for (i in 0..10) {
-            if (contentCandidates[0].score > contentCandidates[0].stack.getScore()) {
-                contentCandidates.shuffle()
-            }
-        }
-
-        val content = contentCandidates[0]
-        last = content.name
-
-        val answers = mutableSetOf<String>()
-        Repository.content.forEach {
-            if (it.checked.get()) {
-                it.content.forEach {
-                    if (it.solution != content.solution && answers.size < 3) {
-                        answers.add(it.solution)
-                    }
-                }
-            }
-        }
-        answers.add(content.solution)
-
-        MainActivityFooter.content.set(ExcerciseFooter(content))
+        val content = selectContent()
+        val answers = selectAnswers(content)
+        Activity.footer.set(ExcerciseFooter(content))
         with(target) {
             addLinearLayout {
                 setOrientationVertical()
@@ -111,6 +80,46 @@ class Excercise : FrameLayoutBuilder.Editor {
                 }
             }
         }
+    }
+
+    private fun selectContent():StackEntry{
+        val candidates = mutableListOf<StackEntry>()
+        Repository.content.forEach {
+            if (it.checked.get()) {
+                it.content.forEach {
+                    if (it.name != last) {
+                        candidates.add(it)
+                    }
+                }
+            }
+        }
+
+        candidates.shuffle()
+
+        for (i in 0..10) {
+            if (candidates[0].score > candidates[0].stack.getScore()) {
+                candidates.shuffle()
+            }
+        }
+
+        val result = candidates[0]
+        last = result.name
+        return result
+    }
+
+    private fun selectAnswers(content:StackEntry):Set<String>{
+        val answers = mutableSetOf<String>()
+        Repository.content.forEach {
+            if (it.checked.get()) {
+                it.content.forEach {
+                    if (it.solution != content.solution && it.stack == content.stack && answers.size < 3) {
+                        answers.add(it.solution)
+                    }
+                }
+            }
+        }
+        answers.add(content.solution)
+        return answers
     }
 
     companion object {

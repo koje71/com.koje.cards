@@ -2,7 +2,7 @@ package com.koje.cards.view.stacklist
 
 import com.koje.cards.R
 import com.koje.cards.data.Repository
-import com.koje.cards.view.MainActivity
+import com.koje.cards.view.Activity
 import com.koje.cards.view.excercise.Excercise
 import com.koje.framework.view.FrameLayoutBuilder
 
@@ -23,7 +23,7 @@ class StackListFooter : FrameLayoutBuilder.Editor {
 
                     setOnClickListener {
                         Repository.score.set(0)
-                        MainActivity.content.set(Excercise())
+                        Activity.content.set(Excercise())
                     }
                 }
 

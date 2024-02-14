@@ -3,7 +3,7 @@ package com.koje.cards.view.excercise
 import com.koje.cards.R
 import com.koje.cards.data.Repository
 import com.koje.cards.data.StackEntry
-import com.koje.cards.view.MainActivity
+import com.koje.cards.view.Activity
 import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.view.FrameLayoutBuilder
 
@@ -22,7 +22,7 @@ class ExcerciseFooter(val content: StackEntry) : FrameLayoutBuilder.Editor {
                     setSizeDP(50)
                     setPaddingsDP(8, 8)
                     setOnClickListener {
-                        MainActivity.content.set(StackList())
+                        Activity.content.set(StackList())
                     }
                 }
 
@@ -52,12 +52,11 @@ class ExcerciseFooter(val content: StackEntry) : FrameLayoutBuilder.Editor {
                     setPaddingsDP(8, 8)
 
                     setOnClickListener {
-                        MainActivity.content.set(Excercise())
+                        Activity.content.set(Excercise())
                     }
                 }
             }
         }
     }
-
 }
 

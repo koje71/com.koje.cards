@@ -1,10 +1,8 @@
 package com.koje.cards.view.wordlist
 
 import com.koje.cards.R
-import com.koje.cards.view.MainActivity
-import com.koje.cards.view.general.RoundCornerButtonFormat
+import com.koje.cards.view.Activity
 import com.koje.cards.view.stacklist.StackList
-import com.koje.framework.utils.Logger
 import com.koje.framework.view.FrameLayoutBuilder
 
 
@@ -21,30 +19,31 @@ class WordListFooter : FrameLayoutBuilder.Editor {
                     setSizeDP(50)
                     setPaddingsDP(8, 8)
                     setOnClickListener {
-                        MainActivity.content.set(StackList())
+                        Activity.content.set(StackList())
                     }
                 }
 
                 addFiller()
 
-                addTextView {
-                    add(RoundCornerButtonFormat())
-                    setText("Import")
+                addImageView {
+                    setDrawableId(R.drawable.removeiconwhite)
+                    setSizeDP(50)
+                    setPaddingsDP(10, 10)
                     setOnClickListener {
-                        Logger.info(this, "huhu")
+                        Activity.content.set(StackList())
                     }
                 }
 
-                addTextView {
-                    add(RoundCornerButtonFormat())
-                    setText("Export")
+                addImageView {
+                    setDrawableId(R.drawable.share)
+                    setSizeDP(50)
+                    setPaddingsDP(10, 10)
                     setOnClickListener {
-                        Logger.info(this, "huhu")
+                        Activity.content.set(StackList())
                     }
                 }
             }
         }
     }
-
 }
 

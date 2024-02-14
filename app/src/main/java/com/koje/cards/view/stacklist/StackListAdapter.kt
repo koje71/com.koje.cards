@@ -10,7 +10,7 @@ import androidx.core.widget.CompoundButtonCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.koje.cards.R
 import com.koje.cards.data.Repository
-import com.koje.cards.view.MainActivity
+import com.koje.cards.view.Activity
 import com.koje.cards.view.wordlist.WordList
 import com.koje.framework.view.LinearLayoutBuilder
 
@@ -98,7 +98,7 @@ class StackListAdapter() :
     private fun loadStackByName(name: String) {
         Repository.content.forEach {
             if (it.name == name) {
-                MainActivity.content.set(WordList(it))
+                Activity.content.set(WordList(it))
                 return
             }
         }

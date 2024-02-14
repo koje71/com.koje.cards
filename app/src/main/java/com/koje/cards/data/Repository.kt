@@ -1,6 +1,6 @@
 package com.koje.cards.data
 
-import com.koje.cards.view.MainActivity
+import com.koje.cards.view.Activity
 import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.App
 import com.koje.framework.events.IntNotifier
@@ -33,7 +33,7 @@ object Repository {
                     }
                 }
             }
-            MainActivity.content.set(StackList())
+            Activity.content.set(StackList())
         }.start()
     }
 

@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.koje.cards.R
 import com.koje.cards.data.Repository
 import com.koje.cards.data.Stack
-import com.koje.cards.view.MainActivityFooter
+import com.koje.cards.view.Activity
+import com.koje.cards.view.general.InputFieldFormat
 import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder
 
@@ -16,7 +17,7 @@ class StackList : FrameLayoutBuilder.Editor {
     lateinit var list: RecyclerView
 
     override fun edit(target: FrameLayoutBuilder) {
-        MainActivityFooter.content.set(StackListFooter())
+        Activity.footer.set(StackListFooter())
         with(target) {
             addLinearLayout {
                 setOrientationVertical()
@@ -46,13 +47,15 @@ class StackList : FrameLayoutBuilder.Editor {
                 addEditText {
                     setPaddingsDP(10, 5)
                     setTextSizeSP(18)
-                    setMarginsDP(0, 5, 0, 0)
+                    setMarginsDP(5, 5, 5, 0)
                     setText("Hinzufügen")
+                    setGravityCenter()
                     setBackgroundNull()
+                    setLayoutWeight(1f)
                     editor = view
+                    add(InputFieldFormat())
                 }
 
-                addFiller()
                 addImageView {
                     setDrawableId(R.drawable.addicon)
                     setSizeDP(50)
@@ -62,10 +65,6 @@ class StackList : FrameLayoutBuilder.Editor {
                         createNewStack(editor?.text.toString())
                     }
                 }
-            }
-            addView {
-                setHeightDP(3)
-                setBackgroundColorId(R.color.BlackTransparent)
             }
         }
 

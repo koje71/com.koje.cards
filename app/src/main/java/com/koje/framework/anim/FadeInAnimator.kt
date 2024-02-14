@@ -10,7 +10,7 @@ class FadeInAnimator(val view: View, val group: ViewGroup) : Animator.AnimatorLi
 
     fun start() {
         with(ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f)) {
-            duration = 200
+            duration = 300
             startDelay = 0
             interpolator = DecelerateInterpolator()
             addListener(this@FadeInAnimator)
