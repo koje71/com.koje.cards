@@ -39,8 +39,8 @@ class Activity : BaseActivity() {
         Repository.load()
     }
 
-    private fun addHeader(target:LinearLayoutBuilder){
-        with(target){
+    private fun addHeader(target: LinearLayoutBuilder) {
+        with(target) {
             addLinearLayout {
                 setOrientationVertical()
                 setBackgroundColorId(R.color.TitleBackground)
@@ -68,8 +68,8 @@ class Activity : BaseActivity() {
         }
     }
 
-    private fun addContent(target:LinearLayoutBuilder){
-        with(target){
+    private fun addContent(target: LinearLayoutBuilder) {
+        with(target) {
             addFrameLayout {
                 setLayoutWeight(1f)
                 setWidthMatchParent()
@@ -89,8 +89,8 @@ class Activity : BaseActivity() {
         }
     }
 
-    private fun addFooter(target:LinearLayoutBuilder){
-        with(target){
+    private fun addFooter(target: LinearLayoutBuilder) {
+        with(target) {
             addFrameLayout {
                 setHeightDP(60)
                 setWidthMatchParent()

@@ -82,7 +82,7 @@ class Excercise : FrameLayoutBuilder.Editor {
         }
     }
 
-    private fun selectContent():StackEntry{
+    private fun selectContent(): StackEntry {
         val candidates = mutableListOf<StackEntry>()
         Repository.content.forEach {
             if (it.checked.get()) {
@@ -107,7 +107,7 @@ class Excercise : FrameLayoutBuilder.Editor {
         return result
     }
 
-    private fun selectAnswers(content:StackEntry):Set<String>{
+    private fun selectAnswers(content: StackEntry): Set<String> {
         val answers = mutableSetOf<String>()
         Repository.content.forEach {
             if (it.checked.get()) {

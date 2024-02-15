@@ -55,8 +55,8 @@ class WordListAdapter(val stack: Stack) :
             addImageView {
                 setDrawableId(R.drawable.removeicon)
                 setSizeDP(40)
-                setPaddingsDP(5, 8,8,5)
-                setMarginsDP(0,0,3,0)
+                setPaddingsDP(5, 8, 8, 5)
+                setMarginsDP(0, 0, 3, 0)
 
                 setOnClickListener {
                     val name = parent.findViewById<TextView>(col1Id).text

@@ -7,7 +7,6 @@ import android.net.ConnectivityManager
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import com.koje.cards.R
-import com.koje.cards.data.Repository
 import com.koje.cards.data.Stack
 import com.koje.cards.view.Activity
 import com.koje.cards.view.general.EmptyView
@@ -29,7 +28,7 @@ import java.util.Collections
 class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
 
     override fun edit(target: FrameLayoutBuilder) {
-        with(target){
+        with(target) {
             addRelativeLayout {
                 setGravityCenter()
                 setSizeMatchParent()
@@ -81,19 +80,19 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
         }
     }
 
-    private fun process(){
+    private fun process() {
         stack.delete()
         Activity.content.set(StackList())
         close()
     }
 
-    private fun close(){
+    private fun close() {
         Activity.overlay.set(EmptyView())
     }
 
     var server: ServerSocket? = null
 
-    fun publish(stack:Stack){
+    fun publish(stack: Stack) {
         connect()
 
         Thread {
@@ -109,7 +108,7 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
                     var writer = PrintWriter(OutputStreamWriter(socket.getOutputStream()))
                     stack.content.forEach {
                         writer.println("huhu")
-                        Logger.info("ip-address","huhu")
+                        Logger.info("ip-address", "huhu")
                     }
                     writer.close()
                 }
@@ -121,7 +120,7 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
     }
 
 
-    fun connect(){
+    fun connect() {
         val cm = App.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         if (cm != null) {
             for (net in cm.getAllNetworks()) {
@@ -130,20 +129,20 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
         }
     }
 
-    fun getLocalIpAdress():String{
+    fun getLocalIpAdress(): String {
         for (intf in Collections.list(NetworkInterface.getNetworkInterfaces())) {
             val addrs: List<InetAddress> = Collections.list(intf.inetAddresses)
             for (addr in addrs) {
                 if (!addr.isLoopbackAddress) {
-                    listOf("192.","172.","10.").forEach {
-                        if(addr.hostAddress.startsWith(it)){
+                    listOf("192.", "172.", "10.").forEach {
+                        if (addr.hostAddress.startsWith(it)) {
                             return addr.hostAddress
                         }
                     }
                 }
             }
         }
-        return("")
+        return ("")
     }
 
     fun getBitmap(): Bitmap {

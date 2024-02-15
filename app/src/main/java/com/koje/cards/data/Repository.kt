@@ -13,7 +13,7 @@ object Repository {
     val path = "${App.context.filesDir.absolutePath}/cards"
     var score = IntNotifier(0)
 
-    init{
+    init {
     }
 
     fun load() {

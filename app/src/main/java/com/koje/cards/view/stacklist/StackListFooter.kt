@@ -18,7 +18,7 @@ class StackListFooter : FrameLayoutBuilder.Editor {
 
                 addTextView {
                     setTextColorID(R.color.white)
-                    addReceiver(message){
+                    addReceiver(message) {
                         setText(it)
                     }
                 }
@@ -38,15 +38,15 @@ class StackListFooter : FrameLayoutBuilder.Editor {
         }
     }
 
-    private fun onForwardClick(){
+    private fun onForwardClick() {
         var count = 0
         Repository.content.forEach {
-            if(it.checked.get()){
-                count+=it.content.size
+            if (it.checked.get()) {
+                count += it.content.size
             }
         }
 
-        if(count<5){
+        if (count < 5) {
             message.set("nicht genug Inhalte ausgewählt")
             return
         }
@@ -55,7 +55,7 @@ class StackListFooter : FrameLayoutBuilder.Editor {
         Activity.content.set(Excercise())
     }
 
-    companion object{
+    companion object {
         val message = StringNotifier("")
     }
 }

@@ -31,33 +31,33 @@ class Stack(val name: String) {
                 it.readText()
             }
 
-            val listType: Type = object : TypeToken<List<StackEntry.Persistence?>?>() {}.type
-            val sources: List<StackEntry.Persistence> = Gson().fromJson(json, listType)
+            val listType: Type = object : TypeToken<List<StackEntryStorage?>?>() {}.type
+            val sources: List<StackEntryStorage> = Gson().fromJson(json, listType)
 
             sources.forEach {
                 content.add(StackEntry(this@Stack, it.a, it.b, it.c))
             }
-        }catch (e:Exception){
-            Logger.info(this,"parsing error")
+        } catch (e: Exception) {
+            Logger.info(this, "parsing error")
         }
     }
 
     fun save() {
-        Thread{
-            val transferList = mutableListOf<StackEntry.Persistence>()
+        Thread {
+            val transferList = mutableListOf<StackEntryStorage>()
             this.content.forEach {
-                transferList.add(StackEntry.Persistence(it.name,it.solution,it.score))
+                transferList.add(StackEntryStorage(it.name, it.solution, it.score))
             }
             val json = Gson().toJson(transferList)
 
             val file = File("${Repository.path}/$name")
             file.bufferedWriter().use { out ->
-                    out.write(json)
+                out.write(json)
             }
         }.start()
     }
 
-    fun delete(){
+    fun delete() {
         val file = File("${Repository.path}/$name")
         file.delete()
         Repository.content.remove(this)

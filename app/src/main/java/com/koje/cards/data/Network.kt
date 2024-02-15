@@ -15,9 +15,9 @@ import java.util.Collections
 
 object Network {
 
-    var server:ServerSocket? = null
+    var server: ServerSocket? = null
 
-    fun publish(stack:Stack){
+    fun publish(stack: Stack) {
         connect()
 
         Thread {
@@ -33,7 +33,7 @@ object Network {
                     var writer = PrintWriter(OutputStreamWriter(socket.getOutputStream()))
                     stack.content.forEach {
                         writer.println("huhu")
-                        Logger.info("ip-address","huhu")
+                        Logger.info("ip-address", "huhu")
                     }
                     writer.close()
                 }
@@ -45,7 +45,7 @@ object Network {
     }
 
 
-    fun connect(){
+    fun connect() {
         val cm = App.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         if (cm != null) {
             for (net in cm.getAllNetworks()) {
@@ -54,20 +54,20 @@ object Network {
         }
     }
 
-    fun getLocalIpAdress():String{
+    fun getLocalIpAdress(): String {
         for (intf in Collections.list(NetworkInterface.getNetworkInterfaces())) {
             val addrs: List<InetAddress> = Collections.list(intf.inetAddresses)
             for (addr in addrs) {
                 if (!addr.isLoopbackAddress) {
-                    listOf("192.","172.","10.").forEach {
-                        if(addr.hostAddress.startsWith(it)){
+                    listOf("192.", "172.", "10.").forEach {
+                        if (addr.hostAddress.startsWith(it)) {
                             return addr.hostAddress
                         }
                     }
                 }
             }
         }
-        return("")
+        return ("")
     }
 
 }

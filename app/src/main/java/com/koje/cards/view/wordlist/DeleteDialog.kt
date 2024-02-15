@@ -1,7 +1,6 @@
 package com.koje.cards.view.wordlist
 
 import com.koje.cards.R
-import com.koje.cards.data.Repository
 import com.koje.cards.data.Stack
 import com.koje.cards.view.Activity
 import com.koje.cards.view.general.EmptyView
@@ -13,7 +12,7 @@ import com.koje.framework.view.FrameLayoutBuilder
 class DeleteDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
 
     override fun edit(target: FrameLayoutBuilder) {
-        with(target){
+        with(target) {
             addRelativeLayout {
                 setGravityCenter()
                 setSizeMatchParent()
@@ -70,13 +69,13 @@ class DeleteDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
         }
     }
 
-    private fun process(){
+    private fun process() {
         stack.delete()
         Activity.content.set(StackList())
         close()
     }
 
-    private fun close(){
+    private fun close() {
         Activity.overlay.set(EmptyView())
     }
 }
