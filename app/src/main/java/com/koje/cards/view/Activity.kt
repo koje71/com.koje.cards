@@ -53,7 +53,7 @@ class Activity : BaseActivity() {
                     setTextSizeSP(40)
                     setTextColorID(R.color.white)
                     setFontId(R.font.nunito_bold)
-                    setText("Lernkarten Spiel")
+                    setText("Lernkarten")
 
                     setOnClickListener {
                         Activity.content.set(StackList())

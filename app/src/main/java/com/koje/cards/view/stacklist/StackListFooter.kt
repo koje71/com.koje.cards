@@ -4,6 +4,7 @@ import com.koje.cards.R
 import com.koje.cards.data.Repository
 import com.koje.cards.view.Activity
 import com.koje.cards.view.excercise.Excercise
+import com.koje.framework.events.StringNotifier
 import com.koje.framework.view.FrameLayoutBuilder
 
 
@@ -14,6 +15,13 @@ class StackListFooter : FrameLayoutBuilder.Editor {
             addLinearLayout {
                 setOrientationHorizontal()
                 setPaddingsDP(5, 5)
+
+                addTextView {
+                    setTextColorID(R.color.white)
+                    addReceiver(message){
+                        setText(it)
+                    }
+                }
                 addFiller()
 
                 addImageView {
@@ -22,8 +30,7 @@ class StackListFooter : FrameLayoutBuilder.Editor {
                     setPaddingsDP(8, 8)
 
                     setOnClickListener {
-                        Repository.score.set(0)
-                        Activity.content.set(Excercise())
+                        onForwardClick()
                     }
                 }
 
@@ -31,5 +38,25 @@ class StackListFooter : FrameLayoutBuilder.Editor {
         }
     }
 
+    private fun onForwardClick(){
+        var count = 0
+        Repository.content.forEach {
+            if(it.checked.get()){
+                count+=it.content.size
+            }
+        }
+
+        if(count<5){
+            message.set("nicht genug Inhalte ausgewählt")
+            return
+        }
+
+        Repository.score.set(0)
+        Activity.content.set(Excercise())
+    }
+
+    companion object{
+        val message = StringNotifier("")
+    }
 }
 

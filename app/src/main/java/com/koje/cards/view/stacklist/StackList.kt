@@ -17,6 +17,7 @@ class StackList : FrameLayoutBuilder.Editor {
     lateinit var list: RecyclerView
 
     override fun edit(target: FrameLayoutBuilder) {
+        StackListFooter.message.set("")
         Activity.footer.set(StackListFooter())
         with(target) {
             addLinearLayout {

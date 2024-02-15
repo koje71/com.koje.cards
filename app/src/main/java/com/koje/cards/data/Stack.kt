@@ -17,9 +17,7 @@ class Stack(val name: String) {
         load()
     }
 
-    fun bindOnNetwork(){
 
-    }
     fun load() {
         try {
             val file = File("${Repository.path}/$name")
@@ -29,14 +27,12 @@ class Stack(val name: String) {
                 }
             }
 
-            val bufferedReader = file.bufferedReader()
-            val json = bufferedReader.use {
+            val json = file.bufferedReader().use {
                 it.readText()
             }
 
-            val gson = Gson()
-            val listType: Type = object : TypeToken<List<StackEntryTransfer?>?>() {}.type
-            val sources: List<StackEntryTransfer> = gson.fromJson(json, listType)
+            val listType: Type = object : TypeToken<List<StackEntry.Persistence?>?>() {}.type
+            val sources: List<StackEntry.Persistence> = Gson().fromJson(json, listType)
 
             sources.forEach {
                 content.add(StackEntry(this@Stack, it.a, it.b, it.c))
@@ -46,54 +42,19 @@ class Stack(val name: String) {
         }
     }
 
-    fun loadOld() {
-        val file = File("${Repository.path}/$name")
-        if (!file.isFile) {
-            file.printWriter().use { out ->
-                out.println("")
-            }
-        }
-
-        file.bufferedReader().forEachLine { line ->
-            val fields = line.split("#")
-            if (fields.size > 2 && fields[0] != "") {
-                content.add(
-                    StackEntry(
-                        this@Stack,
-                        fields[0],
-                        fields[1],
-                        Integer.parseInt(fields[2])
-                    )
-                )
-            }
-        }
-    }
-
     fun save() {
         Thread{
-            val saver = mutableListOf<StackEntryTransfer>()
+            val transferList = mutableListOf<StackEntry.Persistence>()
             this.content.forEach {
-                saver.add(StackEntryTransfer(it.name,it.solution,it.score))
+                transferList.add(StackEntry.Persistence(it.name,it.solution,it.score))
             }
-            val gson = Gson()
-            val json = gson.toJson(saver)
+            val json = Gson().toJson(transferList)
 
             val file = File("${Repository.path}/$name")
             file.bufferedWriter().use { out ->
                     out.write(json)
             }
         }.start()
-
-
-    }
-
-    fun saveOld() {
-        val file = File("${Repository.path}/$name")
-        file.printWriter().use { out ->
-            content.forEach {
-                out.println("${it.name}#${it.solution}#${it.score}")
-            }
-        }
     }
 
     fun delete(){
