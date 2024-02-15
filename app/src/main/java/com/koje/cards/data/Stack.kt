@@ -17,13 +17,12 @@ class Stack(val name: String) {
         load()
     }
 
-
     fun load() {
         try {
             val file = File("${Repository.path}/$name")
             if (!file.isFile) {
-                file.printWriter().use { out ->
-                    out.println("")
+                file.printWriter().use {
+                    it.println("")
                 }
             }
 
@@ -38,7 +37,7 @@ class Stack(val name: String) {
                 content.add(StackEntry(this@Stack, it.a, it.b, it.c))
             }
         } catch (e: Exception) {
-            Logger.info(this, "parsing error")
+            Logger.error(this, "parsing error")
         }
     }
 
@@ -51,8 +50,8 @@ class Stack(val name: String) {
             val json = Gson().toJson(transferList)
 
             val file = File("${Repository.path}/$name")
-            file.bufferedWriter().use { out ->
-                out.write(json)
+            file.bufferedWriter().use {
+                it.write(json)
             }
         }.start()
     }
