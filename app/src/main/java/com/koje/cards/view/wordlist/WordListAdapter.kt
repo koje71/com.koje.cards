@@ -66,8 +66,8 @@ class WordListAdapter(val stack: Stack) :
                         if (current.name == name) {
                             iterator.remove()
                         }
-                        stack.save()
                     }
+                    stack.save()
                     notifyDataSetChanged()
                 }
             }

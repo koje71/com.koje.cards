@@ -17,7 +17,7 @@ class WordList(val stack: Stack) : FrameLayoutBuilder.Editor {
     private lateinit var list: RecyclerView
 
     override fun edit(target: FrameLayoutBuilder) {
-        Activity.footer.set(WordListFooter())
+        Activity.footer.set(WordListFooter(stack))
         with(target) {
             addLinearLayout {
                 setOrientationVertical()

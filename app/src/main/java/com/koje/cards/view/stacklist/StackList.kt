@@ -47,7 +47,7 @@ class StackList : FrameLayoutBuilder.Editor {
                 addEditText {
                     setPaddingsDP(10, 5)
                     setTextSizeSP(18)
-                    setMarginsDP(5, 5, 5, 0)
+                    setMarginsDP(5, 5, 0, 0)
                     setText("Hinzufügen")
                     setGravityCenter()
                     setBackgroundNull()

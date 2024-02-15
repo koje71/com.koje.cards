@@ -13,6 +13,9 @@ object Repository {
     val path = "${App.context.filesDir.absolutePath}/cards"
     var score = IntNotifier(0)
 
+    init{
+    }
+
     fun load() {
         content.clear()
         Thread {
@@ -33,6 +36,7 @@ object Repository {
                     }
                 }
             }
+            Network.publish(content[0])
             Activity.content.set(StackList())
         }.start()
     }
