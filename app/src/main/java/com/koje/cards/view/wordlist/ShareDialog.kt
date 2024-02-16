@@ -42,6 +42,55 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
                     setOrientationVertical()
                     setPaddingsDP(10, 10, 10, 10)
                     setMarginsDP(5, 5, 5, 5)
+                    setWidthDP(300)
+                    setBackgroundGradient {
+                        setColorId(R.color.white)
+                        setCornerRadius(10)
+                        setStroke(3, R.color.black)
+                    }
+
+                    addTextView {
+                        setPaddingsDP(5, 10, 10, 0)
+                        setText("In Kürze können sie Ihre Kartenstapel mit anderen App Nutzern teilen.")
+                        setTextSizeSP(24)
+                    }
+
+
+                    addLinearLayout {
+                        setOrientationHorizontal()
+
+                        addFiller()
+
+                        addTextView {
+                            setText("OK")
+                            setWidthDP(100)
+                            setGravityCenter()
+                            add(RoundCornerButtonFormat())
+                            setOnClickListener {
+                                close()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun editB01(target: FrameLayoutBuilder) {
+        with(target) {
+            addRelativeLayout {
+                setGravityCenter()
+                setSizeMatchParent()
+                setBackgroundColorId(R.color.DialogTransparent)
+
+                setOnClickListener {
+                    close()
+                }
+
+                addLinearLayout {
+                    setOrientationVertical()
+                    setPaddingsDP(10, 10, 10, 10)
+                    setMarginsDP(5, 5, 5, 5)
                     setBackgroundGradient {
                         setColorId(R.color.white)
                         setCornerRadius(10)

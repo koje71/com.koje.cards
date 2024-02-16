@@ -13,14 +13,13 @@ object Repository {
     val path = "${App.context.filesDir.absolutePath}/cards"
     var score = IntNotifier(0)
 
-    init {
-    }
 
     fun load() {
         content.clear()
         Thread {
             Logger.info(this, "data clear")
             Logger.info(this, "data path: $path")
+
             with(File(path)) {
                 if (!isDirectory) {
                     mkdir()
@@ -36,9 +35,34 @@ object Repository {
                     }
                 }
             }
-            Network.publish(content[0])
+
+            loadDefaultContent()
             Activity.content.set(StackList())
         }.start()
     }
 
+    fun loadDefaultContent() {
+        try {
+            val manager = App.context.getAssets()
+            manager.list("cards")?.forEach {
+                if (!containsStack(it)) {
+                    val result = Stack(it)
+                    manager.open("cards/$it").bufferedReader().use {
+                        result.loadFromJson(it.readText())
+                    }
+                    result.saveToJson()
+                    content.add(result)
+                }
+            }
+        } catch (e: Exception) {
+            Logger.error(this, e.toString())
+        }
+    }
+
+    private fun containsStack(name: String): Boolean {
+        content.forEach {
+            if (it.name == name) return true
+        }
+        return false
+    }
 }

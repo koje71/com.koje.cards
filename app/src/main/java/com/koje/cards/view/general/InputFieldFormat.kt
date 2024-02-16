@@ -8,7 +8,7 @@ class InputFieldFormat : EditTextBuilder.Editor {
         with(target) {
             setTextSizeSP(25)
             setBackgroundGradient {
-                setColorId(R.color.white)
+                setColorId(R.color.WhiteTransparent50)
                 setCornerRadius(10)
                 setStroke(3, R.color.black)
             }

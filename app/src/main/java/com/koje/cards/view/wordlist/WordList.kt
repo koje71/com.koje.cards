@@ -91,16 +91,16 @@ class WordList(val stack: Stack) : FrameLayoutBuilder.Editor {
     @SuppressLint("NotifyDataSetChanged")
     fun addNewStackEntry(word1: String, word2: String) {
         with(stack) {
-            content.forEach {
-
-                // keine Wortwiederholungen
-                if (it.name == word1) {
-                    return
+            val iterator = stack.content.iterator()
+            while (iterator.hasNext()) {
+                val current = iterator.next()
+                if (current.name == word1) {
+                    iterator.remove()
                 }
             }
 
             content.add(0, StackEntry(this, word1, word2, 0))
-            save()
+            saveToJson()
             list.adapter?.notifyDataSetChanged()
         }
     }

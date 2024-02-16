@@ -10,6 +10,7 @@
 
     <color name="BlackTransparent">#10000000</color>
     <color name="WhiteTransparent">#30FFFFFF</color>
+    <color name="WhiteTransparent50">#80FFFFFF</color>
     <color name="TitleBackground">#38031D</color>
     <color name="ButtonClick">#EFE7B6</color>
     <color name="Solved">#6FEC3A</color>

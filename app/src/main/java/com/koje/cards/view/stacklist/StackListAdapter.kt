@@ -46,6 +46,7 @@ class StackListAdapter() :
                 setTextSizeSP(30)
                 setLayoutWeight(1f)
                 setMarginsDP(0, 5, 0, 0)
+                setTextColorID(R.color.black)
             }
 
 
@@ -56,10 +57,12 @@ class StackListAdapter() :
                 addTextView {
                     setGravityRight()
                     setViewId(wordCountId)
+                    setTextColorID(R.color.black)
                 }
                 addTextView {
                     setGravityRight()
                     setViewId(scoreId)
+                    setTextColorID(R.color.black)
                 }
             }
 

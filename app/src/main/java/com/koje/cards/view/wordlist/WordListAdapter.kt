@@ -38,6 +38,7 @@ class WordListAdapter(val stack: Stack) :
                     setLayoutWeight(1f)
                     setPaddingsDP(10, 5)
                     setTextSizeSP(22)
+                    setTextColorID(R.color.black)
                 }
 
                 addFiller()
@@ -47,6 +48,7 @@ class WordListAdapter(val stack: Stack) :
                     setPaddingsDP(10, 5)
                     setGravityRight()
                     setTextSizeSP(22)
+                    setTextColorID(R.color.black)
                 }
             }
 
@@ -67,7 +69,7 @@ class WordListAdapter(val stack: Stack) :
                             iterator.remove()
                         }
                     }
-                    stack.save()
+                    stack.saveToJson()
                     notifyDataSetChanged()
                 }
             }

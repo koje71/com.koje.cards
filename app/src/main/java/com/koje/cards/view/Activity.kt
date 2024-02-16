@@ -6,6 +6,7 @@ import com.koje.cards.data.Repository
 import com.koje.cards.view.general.EmptyView
 import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.events.Notifier
+import com.koje.framework.utils.Logger
 import com.koje.framework.view.BaseActivity
 import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder
@@ -13,7 +14,7 @@ import com.koje.framework.view.LinearLayoutBuilder
 class Activity : BaseActivity() {
 
     override fun createLayout(target: FrameLayoutBuilder) {
-        with(window) {
+         with(window) {
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             statusBarColor = target.getColorFromID(R.color.black)
             navigationBarColor = target.getColorFromID(R.color.black)
@@ -74,8 +75,8 @@ class Activity : BaseActivity() {
                 setLayoutWeight(1f)
                 setWidthMatchParent()
                 addImageView {
-                    // https://unsplash.com/de/fotos/braune-und-schwarze-kartendarstellung-Ou5bbnSZjGI
-                    setDrawableId(R.drawable.background)
+                    //https://unsplash.com/de/fotos/blick-auf-einen-nebelverhangenen-berg-M6z6yJUxxd8
+                    setDrawableId(R.drawable.bgr01)
                     setScaleTypeCenterCrop()
                 }
                 addFrameLayout {

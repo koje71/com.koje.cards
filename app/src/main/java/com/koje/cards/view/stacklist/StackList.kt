@@ -73,9 +73,9 @@ class StackList : FrameLayoutBuilder.Editor {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun createNewStack(name: String) {
-        if (name.length == 0) {
-            return
-        }
+        if (name.length == 0) return
+        if (name == "Hinzufügen") return
+
         Repository.content.forEach {
             if (it.name == name) {
                 return

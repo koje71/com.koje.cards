@@ -44,7 +44,7 @@ class Excercise : FrameLayoutBuilder.Editor {
                 var clicked = false
                 add(RoundCornerButtonFormat())
                 setBackgroundGradient {
-                    setColorId(R.color.white)
+                    setColorId(R.color.WhiteTransparent50)
                     setCornerRadius(10)
                     setStroke(3, R.color.black)
                 }
@@ -57,7 +57,7 @@ class Excercise : FrameLayoutBuilder.Editor {
                     if (solved) {
                         Repository.score.increase()
                         content.score++
-                        content.stack.save()
+                        content.stack.saveToJson()
                     } else {
                         Repository.score.decrease()
                     }
@@ -109,13 +109,16 @@ class Excercise : FrameLayoutBuilder.Editor {
 
     private fun selectAnswers(content: StackEntry): Set<String> {
         val answers = mutableSetOf<String>()
-        Repository.content.forEach {
-            if (it.checked.get()) {
-                it.content.forEach {
-                    if (it.solution != content.solution && it.stack == content.stack && answers.size < 3) {
-                        answers.add(it.solution)
-                    }
-                }
+        val all = mutableListOf<String>()
+        content.stack.content.forEach {
+            if (it.solution != content.solution) {
+                all.add(it.solution)
+            }
+        }
+        all.shuffle()
+        all.forEach {
+            if (answers.size < 3) {
+                answers.add(it)
             }
         }
         answers.add(content.solution)

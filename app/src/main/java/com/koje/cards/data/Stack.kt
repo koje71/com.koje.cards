@@ -14,10 +14,10 @@ class Stack(val name: String) {
     var checked = BooleanPreference("checked-$name", false)
 
     init {
-        load()
+        loadFromStorage()
     }
 
-    fun load() {
+    fun loadFromStorage() {
         try {
             val file = File("${Repository.path}/$name")
             if (!file.isFile) {
@@ -29,7 +29,14 @@ class Stack(val name: String) {
             val json = file.bufferedReader().use {
                 it.readText()
             }
+            loadFromJson(json)
+        } catch (e: Exception) {
+            Logger.error(this, "parsing error")
+        }
+    }
 
+    fun loadFromJson(json: String) {
+        try {
             val listType: Type = object : TypeToken<List<StackEntryStorage?>?>() {}.type
             val sources: List<StackEntryStorage> = Gson().fromJson(json, listType)
 
@@ -37,11 +44,11 @@ class Stack(val name: String) {
                 content.add(StackEntry(this@Stack, it.a, it.b, it.c))
             }
         } catch (e: Exception) {
-            Logger.error(this, "parsing error")
+            Logger.error(this, "loading error")
         }
     }
 
-    fun save() {
+    fun saveToJson() {
         Thread {
             val transferList = mutableListOf<StackEntryStorage>()
             this.content.forEach {
