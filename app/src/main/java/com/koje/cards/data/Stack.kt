@@ -6,13 +6,12 @@ import com.koje.framework.utils.BooleanPreference
 import com.koje.framework.utils.Logger
 import java.io.File
 import java.lang.reflect.Type
-import java.util.Collections
 
 
 class Stack(val name: String) {
 
     val content = mutableListOf<StackEntry>()
-    var checked = BooleanPreference("checked-$name", false)
+    var checked = BooleanPreference("checked-$name", name=="Latein")
 
     init {
         loadFromStorage()

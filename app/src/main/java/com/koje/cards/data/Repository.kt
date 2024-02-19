@@ -34,7 +34,9 @@ object Repository {
                 }
             }
 
-            loadDefaultContent()
+            if (content.size == 0) {
+                loadDefaultContent()
+            }
             Activity.content.set(StackList())
         }.start()
     }
