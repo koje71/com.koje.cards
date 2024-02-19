@@ -27,7 +27,10 @@ class WordListAdapter(val stack: Stack) :
         with(LinearLayoutBuilder(LinearLayout(parent.context))) {
             setOrientationHorizontal()
 
+
+            var frame = parent
             addLinearLayout {
+                frame = this.view
                 setLayoutWeight(1f)
                 setOrientationHorizontal()
                 setMarginsDP(0, 3, 0, 0)
@@ -60,7 +63,7 @@ class WordListAdapter(val stack: Stack) :
                 setMarginsDP(0, 0, 3, 0)
 
                 setOnClickListener {
-                    val name = parent.findViewById<TextView>(nameId).text
+                    val name = frame.findViewById<TextView>(nameId).text
                     val iterator = stack.content.iterator()
                     while (iterator.hasNext()) {
                         val current = iterator.next()

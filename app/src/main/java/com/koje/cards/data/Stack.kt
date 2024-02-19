@@ -6,6 +6,7 @@ import com.koje.framework.utils.BooleanPreference
 import com.koje.framework.utils.Logger
 import java.io.File
 import java.lang.reflect.Type
+import java.util.Collections
 
 
 class Stack(val name: String) {
@@ -43,6 +44,7 @@ class Stack(val name: String) {
             sources.forEach {
                 content.add(StackEntry(this@Stack, it.a, it.b, it.c))
             }
+
         } catch (e: Exception) {
             Logger.error(this, "loading error")
         }
@@ -54,6 +56,8 @@ class Stack(val name: String) {
             this.content.forEach {
                 transferList.add(StackEntryStorage(it.name, it.solution, it.score))
             }
+
+            transferList.sortBy { it.a }
             val json = Gson().toJson(transferList)
 
             val file = File("${Repository.path}/$name")
