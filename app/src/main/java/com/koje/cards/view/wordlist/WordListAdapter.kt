@@ -30,7 +30,6 @@ class WordListAdapter(val stack: Stack) :
             addLinearLayout {
                 setLayoutWeight(1f)
                 setOrientationHorizontal()
-                setGravityCenterVertical()
                 setMarginsDP(0, 3, 0, 0)
 
                 addTextView {

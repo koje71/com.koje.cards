@@ -11,7 +11,6 @@ object Repository {
 
     val content = mutableListOf<Stack>()
     val path = "${App.context.filesDir.absolutePath}/cards"
-    var score = IntNotifier(0)
 
 
     fun load() {

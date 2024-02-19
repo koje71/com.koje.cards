@@ -10,25 +10,40 @@ import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder
 
 
-class Excercise : FrameLayoutBuilder.Editor {
+class Excercise(val frame:ExcerciseFrame) : FrameLayoutBuilder.Editor {
 
     val solution = Notifier("")
+    val content = selectContent()
+    val answers = selectAnswers()
+    var finished = false
 
     override fun edit(target: FrameLayoutBuilder) {
-        val content = selectContent()
-        val answers = selectAnswers(content)
-        Activity.footer.set(ExcerciseFooter(content))
         with(target) {
             addLinearLayout {
                 setOrientationVertical()
                 setPaddingsDP(10, 10, 10, 10)
 
-                addTextView {
-                    setText(content.name)
-                    setPaddingsDP(10, 10)
-                    setGravityCenter()
+                addLinearLayout {
+                    setOrientationVertical()
+                    setGravityCenterHoritontal()
                     setLayoutWeight(1f)
-                    setTextSizeSP(60)
+
+                    addFiller()
+                    addTextView {
+                        setText(getContentName(content))
+                        setGravityCenter()
+                        setTextSizeSP(60)
+                    }
+
+                    val hint = getContentHint(content)
+                    if(hint.isNotEmpty()){
+                        addTextView {
+                            setText(hint)
+                            setGravityCenter()
+                            setTextSizeSP(24)
+                        }
+                    }
+                    addFiller()
                 }
 
                 answers.shuffled().forEach {
@@ -36,6 +51,23 @@ class Excercise : FrameLayoutBuilder.Editor {
                 }
             }
         }
+    }
+
+
+    fun getContentName(content: StackEntry):String{
+        val lfIndex = content.name.indexOf('\n')
+        if(lfIndex>0){
+            return content.name.substring(0,lfIndex)
+        }
+        return content.name
+    }
+
+    fun getContentHint(content: StackEntry):String{
+        val lfIndex = content.name.indexOf('\n')
+        if(lfIndex>0){
+            return content.name.substring(lfIndex+1)
+        }
+        return ""
     }
 
     private fun addGameButton(target: LinearLayoutBuilder, content: StackEntry, answer: String) {
@@ -51,15 +83,20 @@ class Excercise : FrameLayoutBuilder.Editor {
                 setText(answer)
                 setGravityCenter()
                 setOnClickListener {
-                    clicked = true
-                    solution.set(content.solution)
-                    val solved = answer == content.solution
-                    if (solved) {
-                        Repository.score.increase()
-                        content.score++
-                        content.stack.saveToJson()
-                    } else {
-                        Repository.score.decrease()
+                    if(!finished) {
+                        finished = true
+                        clicked = true
+                        solution.set(content.solution)
+                        val solved = answer == content.solution
+                        if (solved) {
+                            frame.score.increase()
+                            frame.history.add(true)
+                            content.score++
+                            content.stack.saveToJson()
+                        } else {
+                            frame.score.decrease()
+                            frame.history.add(false)
+                        }
                     }
                 }
 
@@ -81,6 +118,7 @@ class Excercise : FrameLayoutBuilder.Editor {
             }
         }
     }
+
 
     private fun selectContent(): StackEntry {
         val candidates = mutableListOf<StackEntry>()
@@ -107,7 +145,7 @@ class Excercise : FrameLayoutBuilder.Editor {
         return result
     }
 
-    private fun selectAnswers(content: StackEntry): Set<String> {
+    private fun selectAnswers(): Set<String> {
         val answers = mutableSetOf<String>()
         val all = mutableListOf<String>()
         content.stack.content.forEach {

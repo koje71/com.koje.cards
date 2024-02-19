@@ -3,6 +3,8 @@ package com.koje.cards.view
 import android.view.WindowManager
 import com.koje.cards.R
 import com.koje.cards.data.Repository
+import com.koje.cards.view.excercise.Excercise
+import com.koje.cards.view.excercise.ScoreArea
 import com.koje.cards.view.general.EmptyView
 import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.events.Notifier
@@ -57,7 +59,7 @@ class Activity : BaseActivity() {
                     setText("Lernkarten")
 
                     setOnClickListener {
-                        Activity.content.set(StackList())
+                        content.set(StackList())
                     }
                 }
                 addView {
@@ -79,6 +81,7 @@ class Activity : BaseActivity() {
                     setDrawableId(R.drawable.bgr01)
                     setScaleTypeCenterCrop()
                 }
+
                 addFrameLayout {
                     setLayoutWeight(1f)
                     setWidthMatchParent()
@@ -89,6 +92,7 @@ class Activity : BaseActivity() {
             }
         }
     }
+
 
     private fun addFooter(target: LinearLayoutBuilder) {
         with(target) {

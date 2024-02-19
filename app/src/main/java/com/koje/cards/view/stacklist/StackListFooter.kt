@@ -4,6 +4,7 @@ import com.koje.cards.R
 import com.koje.cards.data.Repository
 import com.koje.cards.view.Activity
 import com.koje.cards.view.excercise.Excercise
+import com.koje.cards.view.excercise.ExcerciseFrame
 import com.koje.framework.events.StringNotifier
 import com.koje.framework.view.FrameLayoutBuilder
 
@@ -51,8 +52,7 @@ class StackListFooter : FrameLayoutBuilder.Editor {
             return
         }
 
-        Repository.score.set(0)
-        Activity.content.set(Excercise())
+        Activity.content.set(ExcerciseFrame())
     }
 
     companion object {

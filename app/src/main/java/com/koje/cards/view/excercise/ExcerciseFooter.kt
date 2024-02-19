@@ -8,7 +8,7 @@ import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.view.FrameLayoutBuilder
 
 
-class ExcerciseFooter(val content: StackEntry) : FrameLayoutBuilder.Editor {
+class ExcerciseFooter(val frame:ExcerciseFrame) : FrameLayoutBuilder.Editor {
 
     override fun edit(target: FrameLayoutBuilder) {
         with(target) {
@@ -31,16 +31,9 @@ class ExcerciseFooter(val content: StackEntry) : FrameLayoutBuilder.Editor {
                 addTextView {
                     setTextSizeSP(20)
                     setTextColorID(R.color.white)
-                    setText("${content.stack.name} / ")
-                }
 
-                addTextView {
-                    setTextSizeSP(20)
-                    setTextColorID(R.color.white)
-                    setText(Repository.score.get().toString())
-
-                    addReceiver(Repository.score) {
-                        setText(it.toString())
+                    addReceiver(frame.content){
+                        setText("${it.content.stack.name}")
                     }
                 }
 
@@ -52,7 +45,7 @@ class ExcerciseFooter(val content: StackEntry) : FrameLayoutBuilder.Editor {
                     setPaddingsDP(8, 8)
 
                     setOnClickListener {
-                        Activity.content.set(Excercise())
+                        frame.content.set(Excercise(frame))
                     }
                 }
             }
