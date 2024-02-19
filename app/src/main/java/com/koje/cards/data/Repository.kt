@@ -3,7 +3,6 @@ package com.koje.cards.data
 import com.koje.cards.view.Activity
 import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.App
-import com.koje.framework.events.IntNotifier
 import com.koje.framework.utils.Logger
 import java.io.File
 

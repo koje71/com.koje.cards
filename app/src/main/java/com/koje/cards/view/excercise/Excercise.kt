@@ -3,14 +3,13 @@ package com.koje.cards.view.excercise
 import com.koje.cards.R
 import com.koje.cards.data.Repository
 import com.koje.cards.data.StackEntry
-import com.koje.cards.view.Activity
 import com.koje.cards.view.general.RoundCornerButtonFormat
 import com.koje.framework.events.Notifier
 import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder
 
 
-class Excercise(val frame:ExcerciseFrame) : FrameLayoutBuilder.Editor {
+class Excercise(val frame: ExcerciseFrame) : FrameLayoutBuilder.Editor {
 
     val solution = Notifier("")
     val content = selectContent()
@@ -36,7 +35,7 @@ class Excercise(val frame:ExcerciseFrame) : FrameLayoutBuilder.Editor {
                     }
 
                     val hint = getContentHint(content)
-                    if(hint.isNotEmpty()){
+                    if (hint.isNotEmpty()) {
                         addTextView {
                             setText(hint)
                             setGravityCenter()
@@ -54,20 +53,20 @@ class Excercise(val frame:ExcerciseFrame) : FrameLayoutBuilder.Editor {
     }
 
 
-    fun getContentName(content: StackEntry):String{
+    fun getContentName(content: StackEntry): String {
         val lfIndex = content.name.indexOf('\n')
-        if(lfIndex>0){
-            return content.name.substring(0,lfIndex)
-        }
-        return content.name
+        return (when (lfIndex > 0) {
+            true -> content.name.substring(0, lfIndex)
+            else -> content.name
+        })
     }
 
-    fun getContentHint(content: StackEntry):String{
+    fun getContentHint(content: StackEntry): String {
         val lfIndex = content.name.indexOf('\n')
-        if(lfIndex>0){
-            return content.name.substring(lfIndex+1)
-        }
-        return ""
+        return (when (lfIndex > 0) {
+            true -> content.name.substring(lfIndex + 1)
+            else -> ""
+        })
     }
 
     private fun addGameButton(target: LinearLayoutBuilder, content: StackEntry, answer: String) {
@@ -83,7 +82,7 @@ class Excercise(val frame:ExcerciseFrame) : FrameLayoutBuilder.Editor {
                 setText(answer)
                 setGravityCenter()
                 setOnClickListener {
-                    if(!finished) {
+                    if (!finished) {
                         finished = true
                         clicked = true
                         solution.set(content.solution)

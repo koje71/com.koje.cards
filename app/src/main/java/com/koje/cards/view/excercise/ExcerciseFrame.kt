@@ -14,7 +14,7 @@ class ExcerciseFrame : FrameLayoutBuilder.Editor {
 
     override fun edit(target: FrameLayoutBuilder) {
         Activity.footer.set(ExcerciseFooter(this))
-        with(target){
+        with(target) {
             addFrameLayout {
                 setWidthMatchParent()
                 addReceiver(content) {

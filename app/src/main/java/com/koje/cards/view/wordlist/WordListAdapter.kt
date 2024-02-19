@@ -18,8 +18,8 @@ class WordListAdapter(val stack: Stack) :
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var col1: TextView = view.findViewById(col1Id) as TextView
-        var col2: TextView = view.findViewById(col2Id) as TextView
+        var name: TextView = view.findViewById(nameId) as TextView
+        var solution: TextView = view.findViewById(solutionId) as TextView
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -33,7 +33,7 @@ class WordListAdapter(val stack: Stack) :
                 setMarginsDP(0, 3, 0, 0)
 
                 addTextView {
-                    setViewId(col1Id)
+                    setViewId(nameId)
                     setLayoutWeight(1f)
                     setPaddingsDP(10, 5)
                     setTextSizeSP(22)
@@ -42,7 +42,7 @@ class WordListAdapter(val stack: Stack) :
 
                 addFiller()
                 addTextView {
-                    setViewId(col2Id)
+                    setViewId(solutionId)
                     setLayoutWeight(1f)
                     setPaddingsDP(10, 5)
                     setGravityRight()
@@ -60,7 +60,7 @@ class WordListAdapter(val stack: Stack) :
                 setMarginsDP(0, 0, 3, 0)
 
                 setOnClickListener {
-                    val name = parent.findViewById<TextView>(col1Id).text
+                    val name = parent.findViewById<TextView>(nameId).text
                     val iterator = stack.content.iterator()
                     while (iterator.hasNext()) {
                         val current = iterator.next()
@@ -83,13 +83,13 @@ class WordListAdapter(val stack: Stack) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.col1.setText(content[position].name)
-        holder.col2.setText(content[position].solution)
+        holder.name.setText(content[position].name)
+        holder.solution.setText(content[position].solution)
     }
 
     companion object {
-        val col1Id = View.generateViewId()
-        val col2Id = View.generateViewId()
+        val nameId = View.generateViewId()
+        val solutionId = View.generateViewId()
     }
 
 }

@@ -3,12 +3,9 @@ package com.koje.cards.view
 import android.view.WindowManager
 import com.koje.cards.R
 import com.koje.cards.data.Repository
-import com.koje.cards.view.excercise.Excercise
-import com.koje.cards.view.excercise.ScoreArea
 import com.koje.cards.view.general.EmptyView
 import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.events.Notifier
-import com.koje.framework.utils.Logger
 import com.koje.framework.view.BaseActivity
 import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder
@@ -16,7 +13,7 @@ import com.koje.framework.view.LinearLayoutBuilder
 class Activity : BaseActivity() {
 
     override fun createLayout(target: FrameLayoutBuilder) {
-         with(window) {
+        with(window) {
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             statusBarColor = target.getColorFromID(R.color.black)
             navigationBarColor = target.getColorFromID(R.color.black)

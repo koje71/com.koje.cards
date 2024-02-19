@@ -1,14 +1,12 @@
 package com.koje.cards.view.excercise
 
 import com.koje.cards.R
-import com.koje.cards.data.Repository
-import com.koje.cards.data.StackEntry
 import com.koje.cards.view.Activity
 import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.view.FrameLayoutBuilder
 
 
-class ExcerciseFooter(val frame:ExcerciseFrame) : FrameLayoutBuilder.Editor {
+class ExcerciseFooter(val frame: ExcerciseFrame) : FrameLayoutBuilder.Editor {
 
     override fun edit(target: FrameLayoutBuilder) {
         with(target) {
@@ -32,7 +30,7 @@ class ExcerciseFooter(val frame:ExcerciseFrame) : FrameLayoutBuilder.Editor {
                     setTextSizeSP(20)
                     setTextColorID(R.color.white)
 
-                    addReceiver(frame.content){
+                    addReceiver(frame.content) {
                         setText("${it.content.stack.name}")
                     }
                 }

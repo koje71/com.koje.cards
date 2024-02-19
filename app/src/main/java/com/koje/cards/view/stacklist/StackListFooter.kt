@@ -3,7 +3,6 @@ package com.koje.cards.view.stacklist
 import com.koje.cards.R
 import com.koje.cards.data.Repository
 import com.koje.cards.view.Activity
-import com.koje.cards.view.excercise.Excercise
 import com.koje.cards.view.excercise.ExcerciseFrame
 import com.koje.framework.events.StringNotifier
 import com.koje.framework.view.FrameLayoutBuilder

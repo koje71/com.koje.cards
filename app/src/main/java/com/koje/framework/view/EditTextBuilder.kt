@@ -24,6 +24,10 @@ class EditTextBuilder(override val view: EditText) :
         view.setText(value)
     }
 
+    fun setHint(value: String) {
+        view.setHint(value)
+    }
+
     fun setTextId(value: Int) {
         view.setText(view.context.resources.getText(value))
     }
