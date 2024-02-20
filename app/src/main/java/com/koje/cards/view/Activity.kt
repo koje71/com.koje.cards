@@ -1,11 +1,14 @@
 package com.koje.cards.view
 
+import android.content.Intent
+import android.net.Uri
 import android.view.WindowManager
 import com.koje.cards.R
 import com.koje.cards.data.Repository
 import com.koje.cards.view.general.EmptyView
 import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.events.Notifier
+import com.koje.framework.utils.Logger
 import com.koje.framework.view.BaseActivity
 import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder
@@ -13,6 +16,7 @@ import com.koje.framework.view.LinearLayoutBuilder
 class Activity : BaseActivity() {
 
     override fun createLayout(target: FrameLayoutBuilder) {
+        handleIntent(intent)
         with(window) {
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             statusBarColor = target.getColorFromID(R.color.black)
@@ -103,6 +107,23 @@ class Activity : BaseActivity() {
                 setPaddingsDP(5, 0)
                 addReceiver(footer) {
                     replace(it)
+                }
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    fun handleIntent(intent: Intent?) {
+        if (intent != null) {
+            val data: Uri? = intent?.data
+            if (data != null) {
+                val source = data.getQueryParameter("source")
+                if (source != null) {
+                    Repository.source = source
                 }
             }
         }

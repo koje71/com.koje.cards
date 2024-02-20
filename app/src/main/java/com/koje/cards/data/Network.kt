@@ -15,7 +15,11 @@ import java.util.Collections
 
 object Network {
 
-    var server: ServerSocket? = null
+    private var server: ServerSocket? = null
+
+    fun stop(){
+        server?.close()
+    }
 
     fun publish(stack: Stack) {
         connect()
@@ -30,6 +34,13 @@ object Network {
                     var reader = BufferedReader(InputStreamReader(socket.getInputStream()))
                     Logger.info("ip-address", reader.readLine())
 
+                    var items = mutableListOf<StackEntryStorage>()
+                    stack.content.forEach {
+                        items.add(StackEntryStorage(it.name,it.solution,0))
+                    }
+                    var transfer = StackTransfer(stack.name,items)
+
+
                     var writer = PrintWriter(OutputStreamWriter(socket.getOutputStream()))
                     stack.content.forEach {
                         writer.println("huhu")
@@ -41,7 +52,6 @@ object Network {
                 Logger.info("ip-address:", e.toString())
             }
         }.start()
-
     }
 
 

@@ -53,21 +53,6 @@ class Excercise(val frame: ExcerciseFrame) : FrameLayoutBuilder.Editor {
     }
 
 
-    fun getContentName(content: StackEntry): String {
-        val lfIndex = content.name.indexOf('\n')
-        return (when (lfIndex > 0) {
-            true -> content.name.substring(0, lfIndex)
-            else -> content.name
-        })
-    }
-
-    fun getContentHint(content: StackEntry): String {
-        val lfIndex = content.name.indexOf('\n')
-        return (when (lfIndex > 0) {
-            true -> content.name.substring(lfIndex + 1)
-            else -> ""
-        })
-    }
 
     private fun addGameButton(target: LinearLayoutBuilder, content: StackEntry, answer: String) {
         with(target) {
@@ -124,7 +109,7 @@ class Excercise(val frame: ExcerciseFrame) : FrameLayoutBuilder.Editor {
         Repository.content.forEach {
             if (it.checked.get()) {
                 it.content.forEach {
-                    if (it.name != last) {
+                    if (it.name != frame.last) {
                         candidates.add(it)
                     }
                 }
@@ -140,7 +125,7 @@ class Excercise(val frame: ExcerciseFrame) : FrameLayoutBuilder.Editor {
         }
 
         val result = candidates[0]
-        last = result.name
+        frame.last = result.name
         return result
     }
 
@@ -163,7 +148,23 @@ class Excercise(val frame: ExcerciseFrame) : FrameLayoutBuilder.Editor {
     }
 
     companion object {
-        var last = ""
+
+        fun getContentName(content: StackEntry): String {
+            val lfIndex = content.name.indexOf('\n')
+            return (when (lfIndex > 0) {
+                true -> content.name.substring(0, lfIndex)
+                else -> content.name
+            })
+        }
+
+        fun getContentHint(content: StackEntry): String {
+            val lfIndex = content.name.indexOf('\n')
+            return (when (lfIndex > 0) {
+                true -> content.name.substring(lfIndex + 1)
+                else -> ""
+            })
+        }
+
     }
 }
 

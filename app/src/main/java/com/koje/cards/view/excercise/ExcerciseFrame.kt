@@ -11,6 +11,7 @@ class ExcerciseFrame : FrameLayoutBuilder.Editor {
     val content = Notifier(Excercise(this))
     val score = IntNotifier(0)
     val history = mutableListOf<Boolean>()
+    var last = ""
 
     override fun edit(target: FrameLayoutBuilder) {
         Activity.footer.set(ExcerciseFooter(this))

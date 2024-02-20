@@ -17,6 +17,15 @@ class Stack(val name: String) {
         loadFromStorage()
     }
 
+    fun addEntry(entry:StackEntry){
+        content.forEach {
+            if(it.name == entry.name){
+                return
+            }
+        }
+        content.add(entry)
+    }
+
     fun loadFromStorage() {
         try {
             val file = File("${Repository.path}/$name")
@@ -45,7 +54,7 @@ class Stack(val name: String) {
             }
 
         } catch (e: Exception) {
-            Logger.error(this, "loading error")
+            Logger.error(this, "loading error: ${e.toString()}")
         }
     }
 

@@ -7,6 +7,7 @@ import android.net.ConnectivityManager
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import com.koje.cards.R
+import com.koje.cards.data.Network
 import com.koje.cards.data.Stack
 import com.koje.cards.view.Activity
 import com.koje.cards.view.general.EmptyView
@@ -27,56 +28,11 @@ import java.util.Collections
 
 class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
 
-    override fun edit(target: FrameLayoutBuilder) {
-        with(target) {
-            addRelativeLayout {
-                setGravityCenter()
-                setSizeMatchParent()
-                setBackgroundColorId(R.color.DialogTransparent)
-
-                setOnClickListener {
-                    close()
-                }
-
-                addLinearLayout {
-                    setOrientationVertical()
-                    setPaddingsDP(10, 10, 10, 10)
-                    setMarginsDP(5, 5, 5, 5)
-                    setWidthDP(300)
-                    setBackgroundGradient {
-                        setColorId(R.color.white)
-                        setCornerRadius(10)
-                        setStroke(3, R.color.black)
-                    }
-
-                    addTextView {
-                        setPaddingsDP(5, 10, 10, 0)
-                        setText("In Kürze können sie Ihre Kartenstapel mit anderen App Nutzern teilen.")
-                        setTextSizeSP(24)
-                    }
-
-
-                    addLinearLayout {
-                        setOrientationHorizontal()
-
-                        addFiller()
-
-                        addTextView {
-                            setText("OK")
-                            setWidthDP(100)
-                            setGravityCenter()
-                            add(RoundCornerButtonFormat())
-                            setOnClickListener {
-                                close()
-                            }
-                        }
-                    }
-                }
-            }
-        }
+    init{
+        Network.publish(stack)
     }
 
-    fun editB01(target: FrameLayoutBuilder) {
+    override fun edit(target: FrameLayoutBuilder) {
         with(target) {
             addRelativeLayout {
                 setGravityCenter()
@@ -196,7 +152,7 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
 
     fun getBitmap(): Bitmap {
         val size = 512
-        val content = "kocards://content?source=${getLocalIpAdress()}"
+        val content = "kocards://content?source=${getLocalIpAdress()}:8888/content"
         val bits = QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size)
         return Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565).also {
             for (x in 0 until size) {
