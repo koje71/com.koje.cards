@@ -8,7 +8,6 @@ import com.koje.cards.data.Repository
 import com.koje.cards.view.general.EmptyView
 import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.events.Notifier
-import com.koje.framework.utils.Logger
 import com.koje.framework.view.BaseActivity
 import com.koje.framework.view.FrameLayoutBuilder
 import com.koje.framework.view.LinearLayoutBuilder

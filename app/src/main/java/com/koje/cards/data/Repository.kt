@@ -45,34 +45,64 @@ object Repository {
             if (content.size == 0) {
                 loadDefaultContent()
             }
+            loadNetworkContent()
 
-            loadFromNetwork()
             Activity.content.set(StackList())
         }.start()
     }
 
-    fun loadFromNetwork(){
-        if(source.length==0){
+    fun loadNetworkContent() {
+
+        /*
+        Wenn der User einen QR Code scannt, wird der Content von dort geholt.
+         */
+
+        if (source.length == 0) {
             return
         }
 
         val url = URL("http://$source")
         val urlConnection = url.openConnection() as HttpURLConnection
         try {
-            val ins: InputStream = BufferedInputStream(urlConnection.inputStream)
-            val inr = InputStreamReader(ins)
-            val result: StackTransfer = Gson().fromJson(inr, StackTransfer::class.java)
+            val stream: InputStream = BufferedInputStream(urlConnection.inputStream)
+            val reader = InputStreamReader(stream)
+            val result: StackTransfer = Gson().fromJson(reader, StackTransfer::class.java)
 
+            var stack: Stack? = null;
+            content.forEach {
+                if (it.name == result.name) {
+                    stack = it
+                }
+            }
 
+            if (stack == null) {
+                with(Stack(result.name)) {
+                    stack = this
+                    this@Repository.content.add(this)
+                }
+            }
 
-        }catch(e:Exception){
-            Logger.info(this,"error, reading from Network")
+            result.content.forEach {
+                stack?.addEntry(StackEntry(stack!!, it.a, it.b, it.c))
+            }
+
+            stack?.saveToJson()
+        } catch (e: Exception) {
+            Logger.info(this, "error, reading from Network")
         } finally {
             urlConnection.disconnect()
         }
+
+        source = ""
     }
 
     fun loadDefaultContent() {
+
+        /*
+        Default Content wird in den Assets mitgebracht, damit der User initial einige
+        Wörterbücher zur Verfügung hat.
+         */
+
         try {
             val manager = App.context.getAssets()
             manager.list("cards")?.forEach {

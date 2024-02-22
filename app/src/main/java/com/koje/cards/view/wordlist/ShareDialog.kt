@@ -4,22 +4,22 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.ConnectivityManager
+import com.google.gson.Gson
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import com.koje.cards.R
-import com.koje.cards.data.Network
 import com.koje.cards.data.Stack
+import com.koje.cards.data.StackEntryStorage
+import com.koje.cards.data.StackTransfer
 import com.koje.cards.view.Activity
 import com.koje.cards.view.general.EmptyView
 import com.koje.cards.view.general.RoundCornerButtonFormat
-import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.App
 import com.koje.framework.utils.Logger
 import com.koje.framework.view.FrameLayoutBuilder
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
-import java.io.PrintWriter
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.net.ServerSocket
@@ -28,11 +28,11 @@ import java.util.Collections
 
 class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
 
-    init{
-        Network.publish(stack)
-    }
+    var server: ServerSocket? = null;
+
 
     override fun edit(target: FrameLayoutBuilder) {
+        publish(stack)
         with(target) {
             addRelativeLayout {
                 setGravityCenter()
@@ -67,9 +67,7 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
 
                     addLinearLayout {
                         setOrientationHorizontal()
-
                         addFiller()
-
                         addTextView {
                             setText("Fertig")
                             setWidthDP(100)
@@ -85,53 +83,42 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
         }
     }
 
-    private fun process() {
-        stack.delete()
-        Activity.content.set(StackList())
-        close()
-    }
 
     private fun close() {
+        server?.close()
         Activity.overlay.set(EmptyView())
     }
 
-    var server: ServerSocket? = null
-
-    fun publish(stack: Stack) {
-        connect()
-
-        Thread {
-            try {
-                server?.close()
-                val listener = ServerSocket(8888)
-                this.server = listener
-                while (true) {
-                    var socket = listener.accept()
-                    var reader = BufferedReader(InputStreamReader(socket.getInputStream()))
-                    Logger.info("ip-address", reader.readLine())
-
-                    var writer = PrintWriter(OutputStreamWriter(socket.getOutputStream()))
-                    stack.content.forEach {
-                        writer.println("huhu")
-                        Logger.info("ip-address", "huhu")
-                    }
-                    writer.close()
-                }
-            } catch (e: Exception) {
-                Logger.info("ip-address:", e.toString())
-            }
-        }.start()
-
-    }
-
-
-    fun connect() {
+    private fun publish(stack: Stack) {
         val cm = App.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         if (cm != null) {
             for (net in cm.getAllNetworks()) {
                 cm.bindProcessToNetwork(net)
             }
         }
+        Thread {
+            try {
+                val listener = ServerSocket(8888)
+                this.server = listener
+                while (true) {
+                    var socket = listener.accept()
+                    var reader = BufferedReader(InputStreamReader(socket.getInputStream()))
+                    Logger.info("request:", reader.readLine())
+
+                    var items = mutableListOf<StackEntryStorage>()
+                    stack.content.forEach {
+                        items.add(StackEntryStorage(it.name, it.solution, 0))
+                    }
+
+                    with(OutputStreamWriter(socket.getOutputStream())) {
+                        write(Gson().toJson(StackTransfer(stack.name, items)))
+                        close()
+                    }
+                }
+            } catch (e: Exception) {
+                Logger.info("ip-address:", e.toString())
+            }
+        }.start()
     }
 
     fun getLocalIpAdress(): String {
@@ -152,7 +139,8 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
 
     fun getBitmap(): Bitmap {
         val size = 512
-        val content = "kocards://content?source=${getLocalIpAdress()}:8888/content"
+        val content = "kocards://content?source=${getLocalIpAdress()}:8888/words.json"
+        //val content = "kocards://content?source=www.kojedev.de:80/words.json"
         val bits = QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size)
         return Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565).also {
             for (x in 0 until size) {

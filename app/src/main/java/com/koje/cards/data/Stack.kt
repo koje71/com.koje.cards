@@ -11,15 +11,15 @@ import java.lang.reflect.Type
 class Stack(val name: String) {
 
     val content = mutableListOf<StackEntry>()
-    var checked = BooleanPreference("checked-$name", name=="Latein")
+    var checked = BooleanPreference("checked-$name", name == "Latein")
 
     init {
         loadFromStorage()
     }
 
-    fun addEntry(entry:StackEntry){
+    fun addEntry(entry: StackEntry) {
         content.forEach {
-            if(it.name == entry.name){
+            if (it.name == entry.name) {
                 return
             }
         }

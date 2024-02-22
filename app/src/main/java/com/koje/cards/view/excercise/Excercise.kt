@@ -53,7 +53,6 @@ class Excercise(val frame: ExcerciseFrame) : FrameLayoutBuilder.Editor {
     }
 
 
-
     private fun addGameButton(target: LinearLayoutBuilder, content: StackEntry, answer: String) {
         with(target) {
             addTextView {
