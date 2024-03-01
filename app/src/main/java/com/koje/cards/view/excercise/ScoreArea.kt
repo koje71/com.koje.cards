@@ -8,7 +8,7 @@ class ScoreArea(val frame: ExcerciseFrame) : FrameLayoutBuilder.Editor {
         with(target) {
             addLinearLayout {
                 setOrientationVertical()
-                setPaddingsDP(5, 5)
+                setPaddingsDP(10, 5)
 
                 addLinearLayout {
                     setOrientationHorizontal()

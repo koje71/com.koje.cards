@@ -6,6 +6,7 @@ import com.koje.cards.view.stacklist.StackList
 import com.koje.framework.App
 import com.koje.framework.utils.Logger
 import java.io.BufferedInputStream
+import java.io.BufferedReader
 import java.io.File
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -61,34 +62,48 @@ object Repository {
             return
         }
 
-        val url = URL("http://$source")
+        val url = URL("http://${source}_cards.json")
         val urlConnection = url.openConnection() as HttpURLConnection
         try {
-            val stream: InputStream = BufferedInputStream(urlConnection.inputStream)
-            val reader = InputStreamReader(stream)
-            val result: StackTransfer = Gson().fromJson(reader, StackTransfer::class.java)
+            with(urlConnection){
+                addRequestProperty("Connection", "close");
+                addRequestProperty("User-Agent","Mozilla/5.0 (Java/UploadVertretungsplan;)");
+                addRequestProperty("Accept","text/xml,application/json,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");
+                addRequestProperty("Accept-Charset","ISO-8859-1,utf-8;q=0.7,*;q=0.7");
 
-            var stack: Stack? = null;
-            content.forEach {
-                if (it.name == result.name) {
-                    stack = it
+                val stream: InputStream = BufferedInputStream(inputStream)
+                val reader = BufferedReader(InputStreamReader(stream))
+
+                var line: String? = null
+                var data = StringBuilder()
+                while (reader.readLine().also { line = it } != null) {
+                    data.append(line + "\n")
+                    Logger.info(this,line + "")
                 }
-            }
+                val result: StackTransfer = Gson().fromJson(data.toString(), StackTransfer::class.java)
 
-            if (stack == null) {
-                with(Stack(result.name)) {
-                    stack = this
-                    this@Repository.content.add(this)
+                var stack: Stack? = null;
+                Repository.content.forEach {
+                    if (it.name == result.name) {
+                        stack = it
+                    }
                 }
-            }
 
-            result.content.forEach {
-                stack?.addEntry(StackEntry(stack!!, it.a, it.b, it.c))
-            }
+                if (stack == null) {
+                    with(Stack(result.name)) {
+                        stack = this
+                        this@Repository.content.add(this)
+                    }
+                }
 
-            stack?.saveToJson()
+                result.content.forEach {
+                    stack?.addEntry(StackEntry(stack!!, it.a, it.b, it.c))
+                }
+
+                stack?.saveToJson()
+            }
         } catch (e: Exception) {
-            Logger.info(this, "error, reading from Network")
+            Logger.info(this, "read error: $e")
         } finally {
             urlConnection.disconnect()
         }

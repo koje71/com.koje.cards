@@ -111,12 +111,14 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
                     }
 
                     with(OutputStreamWriter(socket.getOutputStream())) {
+                        write("HTTP/1.1 200 OK\n\n")
                         write(Gson().toJson(StackTransfer(stack.name, items)))
+                        write("\n")
                         close()
                     }
                 }
             } catch (e: Exception) {
-                Logger.info("ip-address:", e.toString())
+                Logger.info(this, "write error: $e")
             }
         }.start()
     }
@@ -139,8 +141,9 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
 
     fun getBitmap(): Bitmap {
         val size = 512
-        val content = "kocards://content?source=${getLocalIpAdress()}:8888/words.json"
-        //val content = "kocards://content?source=www.kojedev.de:80/words.json"
+        val content = "kocards://content?source=${getLocalIpAdress()}:8888/cards.json"
+        //val content = "kocards://content?source=www.kojedev.de:80/latein_cards.json"
+        Logger.info(this,content)
         val bits = QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size)
         return Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565).also {
             for (x in 0 until size) {

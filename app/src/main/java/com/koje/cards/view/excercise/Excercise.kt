@@ -116,12 +116,7 @@ class Excercise(val frame: ExcerciseFrame) : FrameLayoutBuilder.Editor {
         }
 
         candidates.shuffle()
-
-        for (i in 0..10) {
-            if (candidates[0].score > candidates[0].stack.getScore()) {
-                candidates.shuffle()
-            }
-        }
+        candidates.sortBy { it.score }
 
         val result = candidates[0]
         frame.last = result.name

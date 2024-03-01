@@ -47,19 +47,30 @@ class Activity : BaseActivity() {
             addLinearLayout {
                 setOrientationVertical()
                 setBackgroundColorId(R.color.TitleBackground)
-                addTextView {
+                addLinearLayout {
+                    setOrientationHorizontal()
                     setGradientBackgroundVertical(
                         R.color.black,
                         R.color.TitleBackground
                     )
-                    setPaddingsDP(10, 0)
-                    setTextSizeSP(40)
-                    setTextColorID(R.color.white)
-                    setFontId(R.font.nunito_bold)
-                    setText("Lernkarten")
+                    setGravityBottom()
 
-                    setOnClickListener {
-                        content.set(StackList())
+                    addTextView {
+                        setPaddingsDP(10, 0)
+                        setTextSizeSP(40)
+                        setTextColorID(R.color.white)
+                        setFontId(R.font.nunito_bold)
+                        setText("Lernkarten")
+
+                        setOnClickListener {
+                            content.set(StackList())
+                        }
+                    }
+                    addFiller()
+                    addImageView {
+                        setDrawableId(R.drawable.owl)
+                        setSizeDP(40)
+                        setMarginsDP(0,0,5,5)
                     }
                 }
                 addView {
