@@ -60,7 +60,7 @@ class Activity : BaseActivity() {
                         setTextSizeSP(40)
                         setTextColorID(R.color.white)
                         setFontId(R.font.nunito_bold)
-                        setText("Lernkarten")
+                        setTextId(R.string.app_name)
 
                         setOnClickListener {
                             content.set(StackList())
