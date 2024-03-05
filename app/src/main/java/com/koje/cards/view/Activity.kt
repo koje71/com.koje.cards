@@ -3,6 +3,7 @@ package com.koje.cards.view
 import android.content.Intent
 import android.net.Uri
 import android.view.WindowManager
+import androidx.activity.OnBackPressedCallback
 import com.koje.cards.R
 import com.koje.cards.data.Repository
 import com.koje.cards.view.general.EmptyView
@@ -54,7 +55,6 @@ class Activity : BaseActivity() {
                         R.color.TitleBackground
                     )
                     setGravityBottom()
-
                     addTextView {
                         setPaddingsDP(10, 0)
                         setTextSizeSP(40)
@@ -70,7 +70,7 @@ class Activity : BaseActivity() {
                     addImageView {
                         setDrawableId(R.drawable.owl)
                         setSizeDP(40)
-                        setMarginsDP(0,0,5,5)
+                        setMarginsDP(0, 0, 5, 5)
                     }
                 }
                 addView {
@@ -92,7 +92,6 @@ class Activity : BaseActivity() {
                     setDrawableId(R.drawable.bgr01)
                     setScaleTypeCenterCrop()
                 }
-
                 addFrameLayout {
                     setLayoutWeight(1f)
                     setWidthMatchParent()
@@ -138,6 +137,8 @@ class Activity : BaseActivity() {
             }
         }
     }
+
+
 
     companion object {
         val content = Notifier<FrameLayoutBuilder.Editor>(EmptyView())

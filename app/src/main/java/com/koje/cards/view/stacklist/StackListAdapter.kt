@@ -39,7 +39,6 @@ class StackListAdapter() :
                     loadStackByName(line.findViewById<TextView>(nameId).text.toString())
                 }
             }
-
             addTextView {
                 setViewId(nameId)
                 setPaddingsDP(10, 5)
@@ -48,8 +47,6 @@ class StackListAdapter() :
                 setMarginsDP(0, 5, 0, 0)
                 setTextColorID(R.color.black)
             }
-
-
             addLinearLayout {
                 setOrientationVertical()
                 setGravityRight()
@@ -65,7 +62,6 @@ class StackListAdapter() :
                     setTextColorID(R.color.black)
                 }
             }
-
             addCheckbox {
                 setViewId(checkedId)
                 setMarginsDP(5, 0, 10, 15)
@@ -84,7 +80,6 @@ class StackListAdapter() :
                     view,
                     ColorStateList(states, colors.toIntArray())
                 )
-
                 setOnCheckedChangeListener {
                     selectStackByName(line.findViewById<TextView>(nameId).text.toString(), it)
                 }

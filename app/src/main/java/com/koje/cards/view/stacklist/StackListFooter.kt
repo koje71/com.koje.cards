@@ -33,7 +33,6 @@ class StackListFooter : FrameLayoutBuilder.Editor {
                         onForwardClick()
                     }
                 }
-
             }
         }
     }

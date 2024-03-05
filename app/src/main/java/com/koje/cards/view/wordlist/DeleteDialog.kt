@@ -32,18 +32,14 @@ class DeleteDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
                         setCornerRadius(10)
                         setStroke(3, R.color.black)
                     }
-
                     addTextView {
                         setPaddingsDP(5, 10, 10, 20)
                         setText("Wollen Sie wirklich den kompletten Kartenstapel löschen?")
                         setTextSizeSP(24)
                     }
-
                     addLinearLayout {
                         setOrientationHorizontal()
-
                         addFiller()
-
                         addTextView {
                             setText("Nein")
                             setWidthDP(100)
@@ -53,7 +49,6 @@ class DeleteDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
                                 close()
                             }
                         }
-
                         addTextView {
                             setText("Ja")
                             setWidthDP(100)

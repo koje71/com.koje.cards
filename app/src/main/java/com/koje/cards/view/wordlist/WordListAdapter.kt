@@ -27,14 +27,12 @@ class WordListAdapter(val stack: Stack) :
         with(LinearLayoutBuilder(LinearLayout(parent.context))) {
             setOrientationHorizontal()
 
-
             var frame = parent
             addLinearLayout {
                 frame = this.view
                 setLayoutWeight(1f)
                 setOrientationHorizontal()
                 setMarginsDP(0, 3, 0, 0)
-
                 addTextView {
                     setViewId(nameId)
                     setLayoutWeight(1f)
@@ -42,7 +40,6 @@ class WordListAdapter(val stack: Stack) :
                     setTextSizeSP(22)
                     setTextColorID(R.color.black)
                 }
-
                 addFiller()
                 addTextView {
                     setViewId(solutionId)
@@ -53,9 +50,6 @@ class WordListAdapter(val stack: Stack) :
                     setTextColorID(R.color.black)
                 }
             }
-
-
-
             addImageView {
                 setDrawableId(R.drawable.removeicon)
                 setSizeDP(40)
@@ -75,7 +69,6 @@ class WordListAdapter(val stack: Stack) :
                     notifyDataSetChanged()
                 }
             }
-
             return ViewHolder(view)
         }
     }

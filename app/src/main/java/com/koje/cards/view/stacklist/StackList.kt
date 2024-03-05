@@ -32,7 +32,6 @@ class StackList : FrameLayoutBuilder.Editor {
                     }
                 }
                 addFiller()
-
             }
         }
     }
@@ -42,9 +41,7 @@ class StackList : FrameLayoutBuilder.Editor {
         with(target) {
             addLinearLayout {
                 setOrientationHorizontal()
-
                 var editor: EditText? = null
-
                 addEditText {
                     setPaddingsDP(10, 5)
                     setTextSizeSP(18)
@@ -57,26 +54,22 @@ class StackList : FrameLayoutBuilder.Editor {
                     editor = view
                     add(InputFieldFormat())
                 }
-
                 addImageView {
                     setDrawableId(R.drawable.addicon)
                     setSizeDP(50)
                     setPaddingsDP(10, 10)
-
                     setOnClickListener {
                         createNewStack(editor?.text.toString())
                     }
                 }
             }
         }
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun createNewStack(name: String) {
         if (name.length == 0) return
         if (name == "Hinzufügen") return
-
         Repository.content.forEach {
             if (it.name == name) {
                 return

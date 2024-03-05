@@ -65,11 +65,14 @@ object Repository {
         val url = URL("http://${source}_cards.json")
         val urlConnection = url.openConnection() as HttpURLConnection
         try {
-            with(urlConnection){
+            with(urlConnection) {
                 addRequestProperty("Connection", "close");
-                addRequestProperty("User-Agent","Mozilla/5.0 (Java/UploadVertretungsplan;)");
-                addRequestProperty("Accept","text/xml,application/json,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");
-                addRequestProperty("Accept-Charset","ISO-8859-1,utf-8;q=0.7,*;q=0.7");
+                addRequestProperty("User-Agent", "Mozilla/5.0 (Java/UploadVertretungsplan;)");
+                addRequestProperty(
+                    "Accept",
+                    "text/xml,application/json,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
+                );
+                addRequestProperty("Accept-Charset", "ISO-8859-1,utf-8;q=0.7,*;q=0.7");
 
                 val stream: InputStream = BufferedInputStream(inputStream)
                 val reader = BufferedReader(InputStreamReader(stream))
@@ -78,9 +81,10 @@ object Repository {
                 var data = StringBuilder()
                 while (reader.readLine().also { line = it } != null) {
                     data.append(line + "\n")
-                    Logger.info(this,line + "")
+                    Logger.info(this, line + "")
                 }
-                val result: StackTransfer = Gson().fromJson(data.toString(), StackTransfer::class.java)
+                val result: StackTransfer =
+                    Gson().fromJson(data.toString(), StackTransfer::class.java)
 
                 var stack: Stack? = null;
                 Repository.content.forEach {

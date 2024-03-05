@@ -28,8 +28,7 @@ import java.util.Collections
 
 class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
 
-    var server: ServerSocket? = null;
-
+    private var server: ServerSocket? = null;
 
     override fun edit(target: FrameLayoutBuilder) {
         publish(stack)
@@ -38,11 +37,9 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
                 setGravityCenter()
                 setSizeMatchParent()
                 setBackgroundColorId(R.color.DialogTransparent)
-
                 setOnClickListener {
                     close()
                 }
-
                 addLinearLayout {
                     setOrientationVertical()
                     setPaddingsDP(10, 10, 10, 10)
@@ -52,19 +49,16 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
                         setCornerRadius(10)
                         setStroke(3, R.color.black)
                     }
-
                     addTextView {
                         setPaddingsDP(5, 10, 10, 0)
                         setText("Scanne den QR Code mit einem Gerät im gleichen Netzwerk!")
                         setTextSizeSP(24)
                     }
-
                     addImageView {
                         setImageBitmap(getBitmap())
                         setPaddingsDP(15, 15)
                         setSizeDP(300)
                     }
-
                     addLinearLayout {
                         setOrientationHorizontal()
                         addFiller()
@@ -142,8 +136,7 @@ class ShareDialog(val stack: Stack) : FrameLayoutBuilder.Editor {
     fun getBitmap(): Bitmap {
         val size = 512
         val content = "kocards://content?source=${getLocalIpAdress()}:8888/cards.json"
-        //val content = "kocards://content?source=www.kojedev.de:80/latein_cards.json"
-        Logger.info(this,content)
+        Logger.info(this, content)
         val bits = QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size)
         return Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565).also {
             for (x in 0 until size) {

@@ -14,7 +14,6 @@ class WordListFooter(val stack: Stack) : FrameLayoutBuilder.Editor {
             addLinearLayout {
                 setOrientationHorizontal()
                 setPaddingsDP(5, 5)
-
                 addImageView {
                     setDrawableId(R.drawable.stopicon)
                     setSizeDP(50)
@@ -23,9 +22,7 @@ class WordListFooter(val stack: Stack) : FrameLayoutBuilder.Editor {
                         Activity.content.set(StackList())
                     }
                 }
-
                 addFiller()
-
                 addImageView {
                     setDrawableId(R.drawable.removeiconwhite)
                     setSizeDP(50)
@@ -34,7 +31,6 @@ class WordListFooter(val stack: Stack) : FrameLayoutBuilder.Editor {
                         Activity.overlay.set(DeleteDialog(stack))
                     }
                 }
-
                 addImageView {
                     setDrawableId(R.drawable.share)
                     setSizeDP(50)

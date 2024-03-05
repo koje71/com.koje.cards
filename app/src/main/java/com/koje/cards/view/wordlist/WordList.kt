@@ -22,7 +22,6 @@ class WordList(val stack: Stack) : FrameLayoutBuilder.Editor {
             addLinearLayout {
                 setOrientationVertical()
                 setWidthMatchParent()
-
                 addCreateEntry(this)
                 addScrollView {
                     setWidthMatchParent()
@@ -43,10 +42,8 @@ class WordList(val stack: Stack) : FrameLayoutBuilder.Editor {
         with(target) {
             addLinearLayout {
                 setOrientationHorizontal()
-
                 var edit1: EditText? = null
                 var edit2: EditText? = null
-
                 addEditText {
                     setPaddingsDP(10, 5)
                     setTextSizeSP(18)
@@ -56,12 +53,10 @@ class WordList(val stack: Stack) : FrameLayoutBuilder.Editor {
                     setBackgroundNull()
                     setWidthDP(100)
                     setGravityCenter()
-
                     add(InputFieldFormat())
                     setLayoutWeight(1f)
                     edit1 = this.view
                 }
-
                 addEditText {
                     setPaddingsDP(10, 5)
                     setTextSizeSP(18)
@@ -75,19 +70,16 @@ class WordList(val stack: Stack) : FrameLayoutBuilder.Editor {
                     setLayoutWeight(1f)
                     edit2 = this.view
                 }
-
                 addImageView {
                     setDrawableId(R.drawable.addicon)
                     setSizeDP(50)
                     setPaddingsDP(10, 10)
-
                     setOnClickListener {
                         addNewStackEntry(edit1?.text.toString(), edit2?.text.toString())
                     }
                 }
             }
         }
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
